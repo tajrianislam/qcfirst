@@ -1,0 +1,60 @@
+*{
+    background-color: #EEEEEE;
+}
+
+h1{
+    font-family: 'Rosario', sans-serif;
+    color: red;
+    font-size: 60px;
+    margin-top: -10px;
+    margin-bottom: 0px;
+}
+
+.headerList{
+    font-family: 'Rosario', sans-serif;
+    list-style: none;
+    display: flex;
+    align-items: stretch;
+    justify-content: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.headerList li{
+    float: left;
+    padding-right: 10px;
+}
+
+.headerButton{
+    background-color: #C4C4C4;
+    padding: 10px;
+    margin-top: -5px;
+}
+
+.footerList{
+    font-family: 'Rosario', sans-serif;
+    list-style: none;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.footerList li{
+    list-style-type: none;
+}
+
+.footerButton{
+    background-color: #C4C4C4;
+    padding: 10px;
+    margin-top: -5px;
+}
+
+footer{
+    position:absolute;
+    bottom: 0;
+    width: 99%;
+}
