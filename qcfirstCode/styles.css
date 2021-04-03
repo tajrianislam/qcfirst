@@ -58,3 +58,28 @@ footer{
     bottom: 0;
     width: 99%;
 }
+
+.class-signup{
+    text-align: center;
+    font-family: 'Rosario', sans-serif;
+
+}
+
+.Signupbtn{
+    margin: 0 auto;
+    display: block;
+}
+
+.signup-fields{
+    display: inline-block;
+	text-align: right;
+    margin: 0 auto;
+}
+
+.form{
+    margin-bottom: 10px;
+}
+
+.formName, .formEmail{
+    margin-bottom: 40px;
+}
