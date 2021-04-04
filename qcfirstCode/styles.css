@@ -1,3 +1,5 @@
+/* Header and Footer for all pages */
+
 *{
     background-color: #EEEEEE;
 }
@@ -59,21 +61,33 @@ footer{
     width: 99%;
 }
 
+/* Other pages styling */
+
 .class-signup{
     text-align: center;
-    font-family: 'Rosario', sans-serif;
-
+    font-family: 'Alice', serif;
+    font-size: 40px;
 }
 
 .Signupbtn{
-    margin: 0 auto;
+    font-family: 'Rosario', sans-serif;
+    width: 150px;
+    height: 50px;
+    font-size: 25px;
+    margin: 50px auto;
     display: block;
+    background-color: #C4C4C4;
+}
+
+.Signupbtn:hover{
+    background-color: rgba(196, 196, 196, 60%)
 }
 
 .signup-fields{
-    display: inline-block;
-	text-align: right;
-    margin: 0 auto;
+    display: block;
+    text-align: center;
+    font-family: 'Alice', serif;
+    font-weight: bold;  
 }
 
 .form{
@@ -82,4 +96,15 @@ footer{
 
 .formName, .formEmail{
     margin-bottom: 40px;
+}
+
+label{
+    text-align: center;
+    position:absolute;
+    font-size: 20px;
+
+}
+
+input{
+    margin-left: 14em;
 }
