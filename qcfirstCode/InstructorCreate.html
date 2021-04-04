@@ -14,12 +14,53 @@
     <h1>QC First</h1>
     <hr>
     <ul class = "headerList">
-        <li><h2 class = "headerButton">Home</h2></li>
+        <!-- <li><h2 class = "headerButton">Home</h2></li> -->
+        <li><button class="headerButton"><a href="#">Home</a></button></li>
+
         <li><h2 class = "headerButton">Create</h2></li> 
         <li><h2 class = "headerButton">Roster</h2></li>    
     </ul>
 </header>
 <body>
+    <div class="container">
+        <div class="row">
+          <div class="col">
+              <label for="semester">Semester:</label>
+              <input type="text" id="semester">
+          </div>   
+        </div>
+        <div class="row">
+          <div class="col">
+              <label for="dept">Department:</label>
+              <input type="text" id="dept">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+              <label for="course">Course:</label>
+              <input type="text" id="course">
+          </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="classtime">Class Time:</label>
+                <input type="text" id="classtime">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="cap">Capacity:</label>
+                <input type="text" id="cap">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="col-xs-12" for="desc">Description:</label>
+                <textarea name="desc" id="desc" cols="50" rows="4"></textarea>
+            </div>
+        </div>
+      </div>
+      <button class="Signupbtn">Create Course</button>
     
 </body>
 
