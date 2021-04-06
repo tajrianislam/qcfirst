@@ -19,8 +19,9 @@ h1{
     align-items: stretch;
     justify-content: left;
     width: 100%;
-    margin: 0;
+    margin-top: 20px;
     padding: 0;
+    padding-bottom: 20px;
 }
 
 .headerList li{
@@ -31,8 +32,17 @@ h1{
 .headerButton{
     background-color: #C4C4C4;
     padding: 10px;
-    margin-top: -5px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold; 
+    font-size: 30px;
 }
+
+.headerButton:hover{
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
 
 .footerList{
     font-family: 'Rosario', sans-serif;
@@ -53,6 +63,11 @@ h1{
     background-color: #C4C4C4;
     padding: 10px;
     margin-top: -5px;
+}
+
+.footerButton:hover{
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
 }
 
 footer{
@@ -115,7 +130,7 @@ footer{
     margin-left: 14em;
 }
 
-/* Student Home */
+/* Student Home, Instructor Home, Instructor Roster*/
 
 .leftLabels{
     font-family: 'Alice', serif;
@@ -130,7 +145,7 @@ footer{
     font-size: 20px;
 }
 
-.studentLabels{
+.leftLabelsSpacing{
     margin-bottom: 10px;
 }
 
@@ -153,14 +168,14 @@ footer{
     height: 75px;
 } 
 
-.tableHeader{
+.bigTable th{
     font-family: 'Alice', serif;
     font-weight: bold;  
     font-size: 30px;
     background-color: #C4C4C4;
 }
 
-.tableHeaderName{
+.tableName{
     font-family: 'Alice', serif;
     font-weight: bold;  
     font-size: 25px;
@@ -188,6 +203,21 @@ footer{
 .studentEditButton:hover{
     background-color: rgba(196, 196, 196, 60%);
     cursor: pointer;
+}
+
+.rosterButton{
+    background-color: #A0A0A0;
+}
+
+.rosterButton:hover{
+    background-color: rgba(255, 0, 0, 60%);
+    cursor: pointer;
+}
+
+.courseField{
+    font-family: 'Alice', serif;
+    font-weight: bold;  
+    font-size: 20px;
 }
 
 /*Student Enroll */
@@ -236,4 +266,44 @@ footer{
     position:absolute; 
     margin-left: 15px; 
     margin-top: -10px;
+}
+
+/* Instructor Create */
+.leftHandSideForCreate-fields{
+    display: block;
+    text-align: left;
+    font-family: 'Alice', serif;
+    font-weight: bold;  
+}
+
+.leftHandSideForCreate-fields label{
+    position:absolute;
+    font-size: 20px;
+}
+
+.leftHandSideForCreate-fields input{
+    margin-left: 10em;
+}
+.leftHandSideForCreate-fields select{
+    margin-left: 10em;
+    width: 165px; 
+}
+
+textarea{
+    margin-top: 30px;
+}
+
+.createCourse{
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #C4C4C4;
+    color: red;
+    margin-left: 100px;
+    margin-top: 80px; 
+}
+
+.createCourse:hover{
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
 }

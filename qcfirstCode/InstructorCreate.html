@@ -14,53 +14,59 @@
     <h1>QC First</h1>
     <hr>
     <ul class = "headerList">
-        <!-- <li><h2 class = "headerButton">Home</h2></li> -->
-        <li><button class="headerButton"><a href="#">Home</a></button></li>
-
-        <li><h2 class = "headerButton">Create</h2></li> 
-        <li><h2 class = "headerButton">Roster</h2></li>    
+        <li><a href = "InstructorHome.html" class = "headerButton">Home</a></li>
+        <li><a href = "InstructorCreate.html" class = "headerButton">Create</a></li> 
+        <li><a href = "InstructorRoster.html" class = "headerButton">Roster</a></li>    
     </ul>
 </header>
 <body>
-    <div class="container">
+    <div class="container leftHandSideForCreate-fields">
         <div class="row">
-          <div class="col">
+          <div class="col form">
               <label for="semester">Semester:</label>
-              <input type="text" id="semester">
+              <select name = "semester">
+                <option value = "" disabled selected hidden>Choose an option</option>
+            </select>
           </div>   
         </div>
-        <div class="row">
+        <div class="row form">
           <div class="col">
               <label for="dept">Department:</label>
-              <input type="text" id="dept">
+              <select name = "dept">
+                <option value = "" disabled selected hidden>Choose an option</option>
+            </select>
           </div>
         </div>
-        <div class="row">
+        <div class="row form">
           <div class="col">
               <label for="course">Course:</label>
-              <input type="text" id="course">
+              <select name = "course">
+                <option value = "" disabled selected hidden>Choose an option</option>
+            </select>
           </div>
         </div>
-        <div class="row">
+        <div class="row form">
             <div class="col">
                 <label for="classtime">Class Time:</label>
-                <input type="text" id="classtime">
+                <select name = "classtime">
+                    <option value = "" disabled selected hidden>Choose an option</option>
+                </select>
             </div>
         </div>
-        <div class="row">
+        <div class="row form">
             <div class="col">
                 <label for="cap">Capacity:</label>
-                <input type="text" id="cap">
+                <input type="number" id="cap">
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col form">
                 <label class="col-xs-12" for="desc">Description:</label>
                 <textarea name="desc" id="desc" cols="50" rows="4"></textarea>
             </div>
         </div>
       </div>
-      <button class="Signupbtn">Create Course</button>
+      <button class="createCourse">Create Course</button>
     
 </body>
 
