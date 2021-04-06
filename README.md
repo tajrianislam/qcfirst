@@ -1,5 +1,10 @@
 # QCFirst
 
+## Link to website: https://born2code1999.github.io/qcfirstCode/index.html
+
+## Students know which classes to enroll in by using the "Go to degree requirements" feature. Here, they will see the courses required for their specific degree.
+
+
 ## Responsive Login Page
 ### Users will land on the login page when they visit QCFirst. Login credentials will determine instructor or student.
 ![Login page](FigmaDesign/LoginPage.png)
