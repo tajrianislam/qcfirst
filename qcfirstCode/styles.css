@@ -61,15 +61,16 @@ footer{
     width: 99%;
 }
 
-/* Other pages styling */
+/* Styling for Signup and Login Pages */
 
-.class-signup{
+.formHeader{
     text-align: center;
     font-family: 'Alice', serif;
     font-size: 40px;
+    padding-bottom: 30px;
 }
 
-.Signupbtn{
+.formButton{
     font-family: 'Rosario', sans-serif;
     width: 150px;
     height: 50px;
@@ -80,11 +81,12 @@ footer{
     color: red;
 }
 
-.Signupbtn:hover{
-    background-color: rgba(196, 196, 196, 60%)
+.formButton:hover{
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
 }
 
-.signup-fields{
+.signupLogin-fields{
     display: block;
     text-align: center;
     font-family: 'Alice', serif;
@@ -99,13 +101,139 @@ footer{
     margin-bottom: 40px;
 }
 
-label{
+.formPassword{
+    padding-bottom: 40px;
+}
+
+.signupLogin-fields label{
     text-align: center;
     position:absolute;
     font-size: 20px;
-
 }
 
-input{
+.signupLogin-fields input{
     margin-left: 14em;
+}
+
+/* Student Home */
+
+.leftLabels{
+    font-family: 'Alice', serif;
+    font-weight: bold;  
+    font-size: 20px;
+    display: inline;
+}
+
+.leftValue{
+    display: inline;
+    font-family: 'Alice', serif;
+    font-size: 20px;
+}
+
+.studentLabels{
+    margin-bottom: 10px;
+}
+
+.bigTable{
+    width: 100%;
+}
+
+.bigTable tr{
+    width: 30%;
+}
+
+.bigTable td{
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Alice', serif;
+}
+
+.bigTable *{
+    background-color: #C4C4C4;
+    height: 75px;
+} 
+
+.tableHeader{
+    font-family: 'Alice', serif;
+    font-weight: bold;  
+    font-size: 30px;
+    background-color: #C4C4C4;
+}
+
+.tableHeaderName{
+    font-family: 'Alice', serif;
+    font-weight: bold;  
+    font-size: 25px;
+}
+
+.studentEditClassList{
+    font-family: 'Rosario', sans-serif;
+    list-style: none;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.studentEditButton{
+    width: 150px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #C4C4C4;
+    color: red;
+}
+
+.studentEditButton:hover{
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+/*Student Enroll */
+
+.leftHandSide-fields{
+    display: block;
+    text-align: left;
+    font-family: 'Alice', serif;
+    font-weight: bold;  
+}
+
+.leftHandSide-fields label{
+    position:absolute;
+    font-size: 20px;
+}
+
+.leftHandSide-fields input{
+    margin-left: 15em;
+}
+.leftHandSide-fields select{
+    margin-left: 15em;
+    width: 165px; 
+}
+
+.findCourseButton{
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #C4C4C4;
+    color: red;
+    margin-left: 100px;
+    margin-top: 100px; 
+}
+
+.findCourseButton:hover{
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+.degreeButton{
+    width: 225px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #C4C4C4;
+    color: red;
+    position:absolute; 
+    margin-left: 15px; 
+    margin-top: -10px;
 }

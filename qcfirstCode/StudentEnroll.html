@@ -20,34 +20,42 @@
     </ul>
 </header>
 <body>
-    <div class="container">
+    
+    <div class="container leftHandSide-fields">
         <div class="row">
-          <div class="col">
-              <label for="classId">Class ID:</label>
-              <input type="text" id="classId">
+          <div class="col form">
+              <label for="classId">Class ID : </label>
+              <input type="text" id="classId" placeholder="Class ID">
           </div>
         </div>
         <div class="row">
-          <div class="col">
-              <label for="subj">Subject:</label>
-              <input type="text" id="subj">
+          <div class="col form">
+              <label for="subj">Subject :</label>
+              <select name = "subj">
+                <option value = "" disabled selected hidden>Choose an option</option>
+            </select>
           </div>
         </div>
         <div class="row">
-            <div class="col">
-                <label for="cNumber">Course Number:</label>
-                <input type="text" id="cNumber">
+            <div class="col form">
+                <label for="cNumber">Course Number :</label>
+                <input type="text" id="cNumber" placeholder="Course Number">
             </div>      
         </div>
         <div class="row">
             <div class="col">
-                <label for="degReq">Degree Requirements:</label>
-                <input type="text" id="degReq">
-                <button class="degBtn">Go To Degree</button>
+                <label for="degReq">Degree Requirements :</label>
+                <select name = "degReq">
+                    <option value = "" disabled selected hidden>Choose an option</option>
+                </select>
+                <button class="degreeButton">Go To Degree</button>
             </div>
         </div>
       </div>
-      <button class="Signupbtn">Find Course</button>
+      
+      <div>
+        <button class="findCourseButton">Find Course</button>
+      </div>
     
 </body>
 

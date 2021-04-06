@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Rosario&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title></title>
 </head>
@@ -15,27 +17,30 @@
     <hr>
 </header>
 <body>
-    <div class="container">
+   
+    <h2 class="formHeader">Login</h2>
+    
+    <div class="container signupLogin-fields">
         <div class="row">
-          <div class="col-lg-10">
+          <div class="col-lg-10 form">
              <label for="emailLogin">Email:</label>
-             <input type="text" id="emailLogin">
+             <input type="text" id="emailLogin" placeholder="Email">
           </div>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col formPassword">
               <label for="pwLogin">Password:</label>
-              <input type="password:" id="pwLogin">
+              <input type="password:" id="pwLogin" placeholder="Password">
           </div>
         </div>
         <div class="row">
           
         </div>
       </div>
-      <!-- I gave these buttons same class as signup btn for styling. Will need to add id later -->
-      <button class="Signupbtn">Login</button>
-      <button class="Signupbtn">Instructor Signup</button>
-      <button class="Signupbtn">Student Signup</button>
+
+      <button class="formButton">Login</button>
+      <button class="formButton" style ="width: 200px;">Instructor Signup</button>
+      <button class="formButton" style ="width: 200px;">Student Signup</button>
     
 </body>
 

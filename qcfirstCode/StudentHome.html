@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Rosario&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
     <title></title>
@@ -22,26 +23,28 @@
 <body>
     <div class="container">
         <div class="row">
-          <div class="col">
-              <label for="studName">Name:</label>
-              <input type="text" id="studName">
+          <div class="col studentLabels">
+            <p class = "leftLabels">Full Name :</p>
+            <p class = "leftValue" id = "name">oi4nropi4n</p>
+             
           </div>
         </div>
         <div class="row">
           <div class="col">
-              <label for="studId">Student ID:</label>
-              <input type="text" id="studId">
+              <p class = "leftLabels">Student ID :</p>
+              <p class = "leftValue" id = "id">26473492</p>
           </div>
         </div>
       </div>
-      <h3>Current Schedule:</h3>
-      <table>
-          <tr>
+      
+      <h3 class = "tableHeaderName">Current Schedule:</h3>
+      <table class = "bigTable">
+          <tr class = "tableHeader"> 
               <th>Course</th>
               <th>Days/Time</th>
               <th>Professor</th>
           </tr>
-          <tr>
+          <tr> 
               <td>CS355</td>
               <td>M/W: 8:00-10:55PM</td>
               <td>Mark Abramov</td>
@@ -56,11 +59,16 @@
               <td>F: 6:30-9:15PM</td>
               <td>Andy Abreu</td>
           </tr>
+          <tr>
+
+          </tr>
       </table>
-      <button class="doClass">Add Class</button>
-      <button class="doClass">Remove Class</button>
-      <button class="doClass">Edit class</button>
-    
+
+        <ul class = "studentEditClassList">
+            <button class="studentEditButton">Add Class</button>
+            <button class="studentEditButton" style = "width: 200px;">Remove Class</button>
+            <button class="studentEditButton">Edit class</button>
+        </ul>    
 </body>
 
 <footer>
