@@ -1,4 +1,12 @@
 /* Header and Footer for all pages */
+#page-container {
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  #content-wrap {
+    padding-bottom: 2.5rem;    /* Footer height */
+  }
 
 *{
     background-color: #EEEEEE;
@@ -72,8 +80,9 @@ h1{
 
 footer{
     position:absolute;
-    bottom: 0;
+    height: 2.5rem;
     width: 99%;
+    bottom: 0;
 }
 
 /* Styling for Signup and Login Pages */
