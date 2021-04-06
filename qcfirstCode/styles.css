@@ -18,6 +18,16 @@ h1{
     font-size: 60px;
     margin-top: -10px;
     margin-bottom: 0px;
+    display: inline;
+}
+
+.libPic{
+    width: 6.5%;
+    height: 6.5%;
+    display: inline; 
+    float: right; 
+    margin-top: 10px;
+
 }
 
 .headerList{
