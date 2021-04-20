@@ -247,6 +247,7 @@ footer {
     font-size: 25px;
     background-color: #c4c4c4;
     color: red;
+    margin-top: 40px;
 }
 
 .studentEditButton:hover {

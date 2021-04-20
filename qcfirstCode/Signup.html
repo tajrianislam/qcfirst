@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
-    <link rel="stylesheet" media="screen and (min-width: 750px)" href="styles.css">
+    <link rel="stylesheet" media="screen and (min-width: 750px)" href="styles/desktopStyles.css">
+    <link rel="stylesheet" media="screen and (max-width: 750px)" href="styles/mobileStyles.css">
 
     <title>Signup Page</title>
 </head>
@@ -26,40 +27,37 @@
             <form class="signupFields">
                 
                 <div class="form">
-                    <label for="firstName">First Name:</label>
+                    <label for="firstName" class = "mobileNameSignupField">First Name:</label>
                     <input type="text" id = "firstName" name = "firstName" placeholder="First Name">
                 </div>
                 
                 <div class="formName">
-                    <label for="lastName">Last Name:</label>
+                    <label for="lastName" class = "mobileNameSignupField">Last Name:</label>
                     <input type="text" id="lastName" name = "lastName" placeholder="Last Name">
                 </div>
                
                 <div class="form">
-                    <label for="Email">Email:</label>
+                    <label for="Email" class = "mobileEmailSignupField">Email:</label>
                     <input type="email" id="Email" name = "Email" placeholder="Email">
                 </div>
                 
-               
                 <div class="formEmail">
-                    <label for="confEmail">Confirm Email:</label>
+                    <label for="confEmail" class = "mobileConfirmEmailSignupField">Confirm Email:</label>
                     <input type="email" id="confEmail" name = "confEmail" placeholder="Confirm Email">
                 </div>
                 
-                
                 <div class="form">
-                    <label for="password">Password:</label>
+                    <label for="password" class = "mobilePasswordSignupField">Password:</label>
                     <input type="password" id="password" name = "password" placeholder="Password">
                 </div>
-                
                 
                 <div class="formPassword">
                     <label for="confpassword">Confirm Password:</label>
                     <input type="password" id="confpassword" name = "confpassword" placeholder="Confirm Password">
                 </div> 
                 
-                <button class = "formButton">Student Signup</button>
-                <button class = "formButton">Instructor Signup</button>
+                <button class = "formButton mobileBigFormButton">Student Signup</button>
+                <button class = "formButton mobileBigFormButton">Instructor Signup</button>
                 
             </form>  
 

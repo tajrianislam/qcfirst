@@ -1,0 +1,392 @@
+/* Header and Footer for all pages */
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-wrap {
+    padding-bottom: 2.5rem;
+}
+
+* {
+    background-color: #eeeeee;
+}
+
+header {
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-family: "Rosario", sans-serif;
+    color: red;
+    font-size: 40px;
+    display: inline;
+    margin-left: 5px;
+}
+
+.libPic {
+    width: 90px;
+    height: 45px;
+    display: inline;
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.headerList {
+    font-family: "Rosario", sans-serif;
+    list-style-type: none;
+    display: flex;
+    align-items: stretch;
+    justify-content: left;
+    width: 100%;
+    margin-top: 15px;
+    padding: 0;
+}
+
+.headerList li {
+    float: left;
+    padding-right: 10px;
+}
+
+.headerButton {
+    background-color: #c4c4c4;
+    padding: 8px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.headerButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+.footerList {
+    text-align: center;
+    font-family: "Rosario", sans-serif;
+    list-style: none;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-left: -40px;
+}
+
+.footerList li {
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.footerButton {
+    background-color: #c4c4c4;
+    padding: 8px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#contactUs:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+footer {
+    position: absolute;
+    height: 2.5rem;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Styling for Signup and Login Pages */
+
+.formHeader {
+    text-align: center;
+    font-family: "Alice", serif;
+    font-size: 30px;
+    padding-bottom: 30px;
+}
+
+.formButton {
+    font-family: "Rosario", sans-serif;
+    width: 120px;
+    height: 50px;
+    font-size: 25px;
+    margin: 50px auto;
+    display: block;
+    background-color: #c4c4c4;
+    color: red;
+}
+
+.formButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+.formButtonLink {
+    text-decoration: none;
+}
+
+.mobileBigFormButton {
+    font-family: "Rosario", sans-serif;
+    width: 120px;
+    height: 80px;
+    font-size: 25px;
+    margin: 50px auto;
+    display: block;
+    background-color: #c4c4c4;
+    color: red;
+}
+
+.mobileBigFormButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+.signupFields {
+    display: block;
+    text-align: center;
+    font-family: "Alice", serif;
+    font-weight: bold;
+}
+
+.signupFields label {
+    text-align: center;
+    position: absolute;
+    font-size: 20px;
+}
+
+.signupFields input {
+    margin-top: 3em; 
+    height: 20px;
+}
+
+.mobileNameSignupField {
+    margin-left: 30px;
+}
+
+.mobileEmailSignupField {
+    margin-left: 50px;
+}
+
+.mobileConfirmEmailSignupField {
+    margin-left: 15px;
+}
+
+.mobilePasswordSignupField {
+    margin-left: 35px;
+}
+
+.loginFields {
+    display: block;
+    text-align: center;
+    font-family: "Alice", serif;
+    font-weight: bold;
+}
+
+.loginFields label {
+    text-align: center;
+    position: absolute;
+    font-size: 25px;
+}
+
+.loginFields input {
+    margin-left: 11em;
+    height: 25px;
+}
+
+.form {
+    margin-bottom: 10px;
+}
+
+.formName, .formEmail {
+    margin-bottom: 40px;
+}
+
+.formPassword {
+    padding-bottom: 40px;
+}
+
+/* Student Home, Instructor Home, Instructor Roster*/
+
+.leftLabels {
+    font-family: "Alice", serif;
+    font-weight: bold;
+    font-size: 20px;
+    display: inline;
+}
+
+.leftValue {
+    display: inline;
+    font-family: "Alice", serif;
+    font-size: 20px;
+}
+
+.leftLabelsSpacing {
+    margin-bottom: 10px;
+}
+
+.bigTable {
+    width: 100%;
+}
+
+.bigTable tr {
+    width: 30%;
+}
+
+.bigTable td {
+    text-align: center;
+    font-size: 16px;
+    font-family: "Alice", serif;
+}
+
+.bigTable * {
+    background-color: #c4c4c4;
+    height: 75px;
+}
+
+.bigTable th {
+    font-family: "Alice", serif;
+    font-weight: bold;
+    font-size: 24px;
+    background-color: #c4c4c4;
+}
+
+.tableName {
+    font-family: "Alice", serif;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.studentEditClassList {
+    text-align: center;
+    font-family: "Rosario", sans-serif;
+    list-style: none;
+    margin-left: -40px;
+}
+
+.studentEditButton {
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    background-color: #c4c4c4;
+    color: red;
+    margin-bottom: 30px;
+}
+
+.studentEditButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+.rosterButton {
+    background-color: #a0a0a0;
+}
+
+.rosterButton:hover {
+    background-color: rgba(255, 0, 0, 60%);
+    cursor: pointer;
+}
+
+.courseField {
+    font-family: "Alice", serif;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.courseField select {
+    width: 165px;
+    height: 25px;
+}
+
+/*Student Enroll */
+
+.leftHandSide-fields {
+    display: block;
+    text-align: center;
+    font-family: "Alice", serif;
+    font-weight: bold;
+}
+
+.leftHandSide-fields label {
+    text-align: center;
+    position: absolute;
+    font-size: 20px;
+}
+
+.leftHandSide-fields input {
+    margin-top: 3em;
+    height: 20px;
+}
+.leftHandSide-fields select {
+    margin-top: 3em;
+    width: 165px;
+    height: 25px;
+}
+
+.findCourseButton {
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #c4c4c4;
+    color: red;
+    margin-top: 100px;
+}
+
+.findCourseButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+.degreeButton {
+    width: 225px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #c4c4c4;
+    color: red;
+}
+
+/* Instructor Create */
+.leftHandSideForCreate-fields {
+    display: contents;
+    text-align: left;
+    font-family: "Alice", serif;
+    font-weight: bold;
+}
+
+.leftHandSideForCreate-fields label {
+    position: absolute;
+    font-size: 25px;
+}
+
+.leftHandSideForCreate-fields input {
+    margin-left: 12em;
+    height: 25px;
+}
+.leftHandSideForCreate-fields select {
+    margin-left: 12em;
+    width: 165px;
+    height: 25px;
+}
+
+textarea {
+    margin-top: 30px;
+}
+
+.createCourse {
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #c4c4c4;
+    color: red;
+    margin-left: 100px;
+    margin-top: 80px;
+}
+
+.createCourse:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
