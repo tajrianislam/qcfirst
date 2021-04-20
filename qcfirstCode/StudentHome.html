@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" media="screen and (min-width: 750px)" href="styles.css">
 
     <title>Student Home</title>
 </head>
@@ -20,33 +19,32 @@
         <ul class = "headerList">
             <li><a href = "StudentHome.html" class = "headerButton">Home</a></li>
             <li><a href = "StudentEnroll.html" class = "headerButton">Enroll</a></li> 
-            <li><a href = "https://www.qc.cuny.edu/pages/calendar.aspx" class = "headerButton">Calendar</a></li>    
+            <li><a href = "https://www.qc.cuny.edu/pages/calendar.aspx" class = "headerButton" target = "_blank">Calendar</a></li>    
         </ul>
     </header>
 
     <div id="page-container">
         <div id="content-wrap">
-            <div class="container">
-                <div class="row">
-                <div class="col leftLabelsSpacing">
+            
+                <div class="leftLabelsSpacing">
                     <p class = "leftLabels">Full Name :</p>
                     <p class = "leftValue" id = "name">oi4nropi4n</p>   
                 </div>
-                </div>
-                <div class="row">
-                <div class="col">
+                
+                <div>
                     <p class = "leftLabels">Student ID :</p>
                     <p class = "leftValue" id = "id">26473492</p>
                 </div>
-                </div>
+                
             </div>
             
             <h3 class = "tableName">Current Schedule:</h3>
-            <table class = "bigTable">
-                <tr> 
-                    <th>Course</th>
-                    <th>Days/Time</th>
-                    <th>Professor</th>
+            
+            <table class = "bigTable" id="studentSchedule">
+                 <tr>
+                    <th scope = "col">Course</th>
+                    <th scope = "col">Days/Time</th>
+                    <th scope = "col">Professor</th>
                 </tr>
                 <tr> 
                     <td>CS355</td>
@@ -70,7 +68,7 @@
 
                 <ul class = "studentEditClassList">
                     <button class="studentEditButton">Add Class</button>
-                    <button class="studentEditButton" style = "width: 200px;">Remove Class</button>
+                    <button class="studentEditButton">Remove Class</button>
                     <button class="studentEditButton">Edit class</button>
                 </ul> 
         </div>

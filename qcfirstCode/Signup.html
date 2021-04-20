@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" media="screen and (min-width: 750px)" href="styles.css">
 
     <title>Signup Page</title>
 </head>
@@ -21,62 +20,62 @@
 
     <div id="page-container">
         <div id="content-wrap">
+            
             <h2 class="formHeader">Sign Up</h2>
 
-            <div class="container signupLogin-fields">
-                <div class="row">
-                <div class="col form">
+            <form class="signupFields">
+                
+                <div class="form">
                     <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="First Name">
+                    <input type="text" id = "firstName" name = "firstName" placeholder="First Name">
                 </div>
-                </div>
-                <div class="row">
-                <div class="col formName">
+                
+                <div class="formName">
                     <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName"  placeholder="Last Name">
+                    <input type="text" id="lastName" name = "lastName" placeholder="Last Name">
                 </div>
+               
+                <div class="form">
+                    <label for="Email">Email:</label>
+                    <input type="email" id="Email" name = "Email" placeholder="Email">
                 </div>
-                <div class="row">
-                    <div class="col form">
-                        <label for="Email">Email:</label>
-                    <input type="email" id="Email"  placeholder="Email">
-                    </div>
                 
+               
+                <div class="formEmail">
+                    <label for="confEmail">Confirm Email:</label>
+                    <input type="email" id="confEmail" name = "confEmail" placeholder="Confirm Email">
                 </div>
-                <div class="row">
-                    <div class="col formEmail">
-                        <label for="confEmail">Confirm Email:</label>
-                        <input type="email" id="confEmail"  placeholder="Confirm Email">
-                    </div>
-                
-                </div>
-                <div class="row">
-                    <div class="col form">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password"  placeholder="Password">
-                    </div>
-                
-                </div>
-                <div class="row">
-                    <div class="col formPassword">
-                        <label class="col-xs-12" for="confpassword">Confirm Password:</label>
-                        <input type="password" id="confpassword" placeholder="Confirm Password">
-                    </div>
                 
                 
+                <div class="form">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name = "password" placeholder="Password">
                 </div>
-            </div>
-            <button class="formButton">Sign Up</button>
+                
+                
+                <div class="formPassword">
+                    <label for="confpassword">Confirm Password:</label>
+                    <input type="password" id="confpassword" name = "confpassword" placeholder="Confirm Password">
+                </div> 
+                
+                <button class = "formButton">Student Signup</button>
+                <button class = "formButton">Instructor Signup</button>
+                
+            </form>  
+
+            <a href = "index.html" class = "formButtonLink"><button class = "formButton">Login</button></a>
+
         </div>
+        
         <footer>
             <hr>
             <ul class = "footerList">
-                <li><h2 class = "footerButton">Terms Of Use</h2></li>
-                <li><h2 class = "footerButton">Contact Us</h2></li>
-                <li><h2 class = "footerButton">Copyright 2021</h2></li>
+                <li><a class = "footerButton">Terms Of Use</a></li>
+                <li><a href = "mailto: daven.santana38@qmail.cuny.edu" class = "footerButton" id = "contactUs">Contact Us</a></li>
+                <li><a class = "footerButton">Copyright 2021</a></li>
             </ul> 
         </footer>
-    </div> 
-    
+
+    </div>   
 </body>
 </html>

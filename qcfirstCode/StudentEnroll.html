@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" media="screen and (min-width: 750px)" href="styles.css">
 
     <title>Student Course Enrollment</title>
 </head>
@@ -20,55 +19,56 @@
         <ul class = "headerList">
             <li><a href = "StudentHome.html" class = "headerButton">Home</a></li>
             <li><a href = "StudentEnroll.html" class = "headerButton">Enroll</a></li> 
-            <li><a href = "https://www.qc.cuny.edu/pages/calendar.aspx" class = "headerButton">Calendar</a></li>    
+            <li><a href = "https://www.qc.cuny.edu/pages/calendar.aspx" class = "headerButton" target = "_blank">Calendar</a></li>    
         </ul>
     </header>
     
     <div id="page-container">
         <div id="content-wrap">
-            <div class="container leftHandSide-fields">
-                <div class="row">
-                <div class="col form">
+            
+            <form class="leftHandSide-fields">
+
+                <div class="form">
                     <label for="classId">Class ID : </label>
-                    <input type="text" id="classId" placeholder="Class ID">
+                    <input type="text" id="classId" name = "classId" placeholder="Class ID">
                 </div>
-                </div>
-                <div class="row">
-                <div class="col form">
+               
+                <div class="form">
                     <label for="subj">Subject :</label>
-                    <select name = "subj">
+                    <select name = "subjectEnroll">
                         <option value = "" disabled selected hidden>Choose an option</option>
                     </select>
                 </div>
+                
+                <div class="form">
+                    <label for="cNumber">Course Number :</label>
+                    <input type="text" id="cNumber" name = "cNumber" placeholder="Course Number">
+                </div>      
+                
+                <div class= "form">
+                    <label for="degReq">Degree Requirements :</label>
+                    <select name = "degreeRequirements">
+                        <option value = "" disabled selected hidden>Choose an option</option>
+                    </select>
+                    
+                    <button class="degreeButton">Go To Degree</button>
                 </div>
-                <div class="row">
-                    <div class="col form">
-                        <label for="cNumber">Course Number :</label>
-                        <input type="text" id="cNumber" placeholder="Course Number">
-                    </div>      
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="degReq">Degree Requirements :</label>
-                        <select name = "degReq">
-                            <option value = "" disabled selected hidden>Choose an option</option>
-                        </select>
-                        <button class="degreeButton">Go To Degree</button>
-                    </div>
-                </div>
-            </div>
-            
+
                 <button class="findCourseButton">Find Course</button>
+                
+            </form>
+            
         </div>
+
         <footer>
             <hr>
             <ul class = "footerList">
-                <li><h2 class = "footerButton">Terms Of Use</h2></li>
-                <li><h2 class = "footerButton">Contact Us</h2></li>
-                <li><h2 class = "footerButton">Copyright 2021</h2></li>
+                <li><a class = "footerButton">Terms Of Use</a></li>
+                <li><a href = "mailto: daven.santana38@qmail.cuny.edu" class = "footerButton" id = "contactUs">Contact Us</a></li>
+                <li><a class = "footerButton">Copyright 2021</a></li>
             </ul> 
         </footer>
-    </div>     
-    
+
+    </div>        
 </body>
 </html>
