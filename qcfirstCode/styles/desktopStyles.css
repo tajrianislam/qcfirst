@@ -321,8 +321,13 @@ footer {
     background-color: #c4c4c4;
     color: red;
     position: absolute;
-    margin-left: 15px;
-    margin-top: -10px;
+    margin-left: 500px;
+    margin-top: -40px; 
+}
+
+.degreeButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
 }
 
 /* Instructor Create */

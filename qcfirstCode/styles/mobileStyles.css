@@ -293,12 +293,12 @@ footer {
 .courseField {
     font-family: "Alice", serif;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .courseField select {
     width: 165px;
-    height: 25px;
+    height: 20px;
 }
 
 /*Student Enroll */
@@ -323,17 +323,17 @@ footer {
 .leftHandSide-fields select {
     margin-top: 3em;
     width: 165px;
-    height: 25px;
+    height: 20px;
 }
 
 .findCourseButton {
     text-align: center;
-    width: 200px;
-    height: 50px;
-    font-size: 25px;
+    width: 175px;
+    height: 40px;
+    font-size: 20px;
     background-color: #c4c4c4;
     color: red;
-    margin-top: 100px;
+    margin-top: 40px;
 }
 
 .findCourseButton:hover {
@@ -342,38 +342,82 @@ footer {
 }
 
 .degreeButton {
-    width: 225px;
-    height: 50px;
-    font-size: 25px;
+    width: 175px;
+    height: 40px;
+    font-size: 20px;
     background-color: #c4c4c4;
     color: red;
+    margin-top: 20px;
+}
+
+.degreeButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+.centerButton {
+    text-align: center;
+}
+
+.classIdSubjectEnroll {
+    margin-left: 40px;
+}
+
+.courseNumberEnroll {
+    margin-left:8px;
+}
+
+.degreeReqEnroll {
+    margin-left: -15px;
 }
 
 /* Instructor Create */
 .leftHandSideForCreate-fields {
-    display: contents;
-    text-align: left;
+    /* display: block; */
+    text-align: center;
     font-family: "Alice", serif;
     font-weight: bold;
 }
 
 .leftHandSideForCreate-fields label {
+    text-align: center;
     position: absolute;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .leftHandSideForCreate-fields input {
-    margin-left: 12em;
-    height: 25px;
+    margin-top: 3em;
+    height: 20px;
 }
 .leftHandSideForCreate-fields select {
-    margin-left: 12em;
+    margin-top: 3em;
     width: 165px;
-    height: 25px;
+    height: 20px;
+}
+
+.semesterCapacityCreate {
+    margin-left: 35px;
+}
+
+.departmentCreate {
+    margin-left: 25px;
+}
+
+.courseInstructorCreate {
+    margin-left: 45px;
+}
+
+.courseClassTimeCreate {
+    margin-left: 30px;
+}
+
+.descriptionCreate {
+    margin-left: 125px;
 }
 
 textarea {
     margin-top: 30px;
+    max-width: 100%;
 }
 
 .createCourse {
@@ -382,8 +426,6 @@ textarea {
     font-size: 25px;
     background-color: #c4c4c4;
     color: red;
-    margin-left: 100px;
-    margin-top: 80px;
 }
 
 .createCourse:hover {

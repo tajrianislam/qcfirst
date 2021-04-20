@@ -30,29 +30,32 @@
             <form class="leftHandSide-fields">
 
                 <div class="form">
-                    <label for="classId">Class ID : </label>
+                    <label for="classId" class = "classIdSubjectEnroll">Class ID : </label>
                     <input type="text" id="classId" name = "classId" placeholder="Class ID">
                 </div>
                
                 <div class="form">
-                    <label for="subj">Subject :</label>
+                    <label for="subj" class = "classIdSubjectEnroll">Subject :</label>
                     <select name = "subjectEnroll">
                         <option value = "" disabled selected hidden>Choose an option</option>
                     </select>
                 </div>
                 
                 <div class="form">
-                    <label for="cNumber">Course Number :</label>
+                    <label for="cNumber" class = "courseNumberEnroll">Course Number :</label>
                     <input type="text" id="cNumber" name = "cNumber" placeholder="Course Number">
                 </div>      
                 
                 <div class= "form">
-                    <label for="degReq">Degree Requirements :</label>
+                    <label for="degReq" class = "degreeReqEnroll">Degree Requirements :</label>
                     <select name = "degreeRequirements">
                         <option value = "" disabled selected hidden>Choose an option</option>
                     </select>
                     
-                    <button class="degreeButton">Go To Degree</button>
+                    <div class = "centerButton">
+                        <button class="degreeButton">Go To Degree</button>
+                    </div>
+                    
                 </div>
 
                 <button class="findCourseButton">Find Course</button>
