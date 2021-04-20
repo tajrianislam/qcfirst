@@ -27,41 +27,24 @@
     
     <div id="page-container">
         <div id="content-wrap">
-            
-            <form class="leftHandSide-fields">
 
-                <div class="form">
-                    <label for="classId" class = "classIdSubjectEnroll">Class ID : </label>
-                    <input type="text" id="classId" name = "classId" placeholder="Class ID">
-                </div>
-               
-                <div class="form">
-                    <label for="subj" class = "classIdSubjectEnroll">Subject :</label>
-                    <select name = "subjectEnroll">
-                        <option value = "" disabled selected hidden>Choose an option</option>
-                    </select>
-                </div>
-                
-                <div class="form">
-                    <label for="cNumber" class = "courseNumberEnroll">Course Number :</label>
-                    <input type="text" id="cNumber" name = "cNumber" placeholder="Course Number">
-                </div>      
-                
-                <div class= "form">
-                    <label for="degReq" class = "degreeReqEnroll">Degree Requirements :</label>
-                    <select name = "degreeRequirements">
-                        <option value = "" disabled selected hidden>Choose an option</option>
-                    </select>
-                    
-                    <div class = "centerButton">
-                        <button class="degreeButton">Go To Degree</button>
-                    </div>
-                    
-                </div>
-            </form>
+            <table class = "bigTable" id="studentCourseTable">
+                <tr>
+                    <th scope = "col">Course ID</th>
+                    <th scope = "col">Course Name</th>
+                    <th scope = "col">Course Time</th>
+                    <th scope = "col">Professor</th>
+                    <th scope = "col">Select</th>
+                </tr>
+                <tr>
+                    <td>54231</td>
+                    <td>CS 355 : Internet and Web Technologies</td>
+                    <td>T 8:00 PM - 10:50 PM</td>
+                    <td>Mark Abramov</td>
+                    <td><button class = "addCourseButton">Add Course</button></td>
+                </tr>
+            </table>
 
-            <a href = "studentcourses.html" class = "formButtonLink"> <button class="findCourseButton">Find Course</button></a>
-            
         </div>
 
         <footer>
