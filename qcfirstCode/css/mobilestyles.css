@@ -19,12 +19,15 @@ header {
 
 h1 {
     font-family: "Rosario", sans-serif;
-    color: red;
     font-size: 40px;
     display: inline;
     margin-left: 5px;
 }
 
+h1 a {
+    text-decoration: none;
+    color: red;
+}
 .libPic {
     width: 90px;
     height: 45px;
@@ -52,16 +55,27 @@ h1 {
 
 .headerButton {
     background-color: #c4c4c4;
-    padding: 8px;
+    padding: 7px;
     text-decoration: none;
     color: black;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .headerButton:hover {
     background-color: rgba(196, 196, 196, 60%);
     cursor: pointer;
+}
+
+@media only screen and (max-width: 350px) {
+    .headerButton {
+        background-color: #c4c4c4;
+        padding: 7px;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+    }
 }
 
 .footerList {
@@ -85,6 +99,17 @@ h1 {
     color: black;
     font-weight: bold;
     font-size: 24px;
+}
+
+@media only screen and (max-width: 350px) {
+    .footerButton {
+        background-color: #c4c4c4;
+        padding: 8px;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+    }
 }
 
 #contactUs:hover {
@@ -253,6 +278,34 @@ footer {
     background-color: #c4c4c4;
 }
 
+@media only screen and (max-width: 500px) {
+    #studentCourseTable * {
+        height: 100px;
+    }
+
+    #studentCourseTable th {
+        font-size: 18px;
+    }
+
+    #studentCourseTable td {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    #studentCourseTable * {
+        height: 100px;
+    }
+
+    #studentCourseTable th {
+        font-size: 14px;
+    }
+
+    #studentCourseTable td {
+        font-size: 10px;
+    }
+}
+
 .tableName {
     font-family: "Alice", serif;
     font-weight: bold;
@@ -278,15 +331,6 @@ footer {
 
 .studentEditButton:hover {
     background-color: rgba(196, 196, 196, 60%);
-    cursor: pointer;
-}
-
-.rosterButton {
-    background-color: #a0a0a0;
-}
-
-.rosterButton:hover {
-    background-color: rgba(255, 0, 0, 60%);
     cursor: pointer;
 }
 
@@ -369,6 +413,15 @@ footer {
 
 .degreeReqEnroll {
     margin-left: -15px;
+}
+
+.addCourseButton:hover {
+    background-color: #a0a0a0;
+}
+
+.addCourseButton:hover {
+    background-color: rgba(255, 0, 0, 60%);
+    cursor: pointer;
 }
 
 /* Instructor Create */

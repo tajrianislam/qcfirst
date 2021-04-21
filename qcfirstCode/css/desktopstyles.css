@@ -19,10 +19,14 @@ header {
 
 h1 {
     font-family: "Rosario", sans-serif;
-    color: red;
     font-size: 60px;
     display: inline;
     margin-left: 5px;
+}
+
+h1 a {
+    text-decoration: none;
+    color: red;
 }
 
 .libPic {
@@ -46,7 +50,7 @@ h1 {
     padding-bottom: 20px;
 }
 
-.headerList li {
+.headerList li{
     float: left;
     padding-right: 10px;
 }
@@ -120,6 +124,7 @@ footer {
     display: block;
     background-color: #c4c4c4;
     color: red;
+    text-decoration: none;
 }
 
 .formButton:hover {
@@ -129,6 +134,7 @@ footer {
 
 .formButtonLink {
     text-decoration: none;
+    color: red;
 }
 
 .signupFields {
@@ -255,15 +261,6 @@ footer {
     cursor: pointer;
 }
 
-.rosterButton {
-    background-color: #a0a0a0;
-}
-
-.rosterButton:hover {
-    background-color: rgba(255, 0, 0, 60%);
-    cursor: pointer;
-}
-
 .courseField {
     font-family: "Alice", serif;
     font-weight: bold;
@@ -327,6 +324,15 @@ footer {
 
 .degreeButton:hover {
     background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+.addCourseButton:hover {
+    background-color: #a0a0a0;
+}
+
+.addCourseButton:hover {
+    background-color: rgba(255, 0, 0, 60%);
     cursor: pointer;
 }
 
