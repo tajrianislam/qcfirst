@@ -213,12 +213,12 @@ footer {
 .loginFields label {
     text-align: center;
     position: absolute;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .loginFields input {
-    margin-left: 11em;
-    height: 25px;
+    margin-left: 9em;
+    height: 20px;
 }
 
 .form {
