@@ -314,12 +314,12 @@ footer {
 
 .studentEditClassList {
     text-align: center;
-    font-family: "Rosario", sans-serif;
     list-style: none;
     margin-left: -40px;
 }
 
 .studentEditButton {
+    font-family: "Rosario", sans-serif;
     justify-content: center;
     width: 150px;
     height: 50px;
@@ -371,13 +371,14 @@ footer {
 }
 
 .findCourseButton {
-    text-align: center;
+    font-family: "Rosario", sans-serif;
     width: 175px;
     height: 40px;
     font-size: 20px;
+    margin: 50px auto;
+    display: block;
     background-color: #c4c4c4;
     color: red;
-    margin-top: 40px;
 }
 
 .findCourseButton:hover {
@@ -385,7 +386,12 @@ footer {
     cursor: pointer;
 }
 
+.centerFindCourseButton {
+    text-align: center;
+}
+
 .degreeButton {
+    font-family: "Rosario", sans-serif;
     width: 175px;
     height: 40px;
     font-size: 20px;
@@ -474,6 +480,7 @@ textarea {
 }
 
 .createCourse {
+    font-family: "Rosario", sans-serif;
     width: 200px;
     height: 50px;
     font-size: 25px;
