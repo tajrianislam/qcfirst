@@ -2,6 +2,7 @@
 const express = require ('express');
 const path = require ('path');
 const bodyParser = require ('body-parser');
+const database = require ('./database');
 const app = express();
 const router = express.Router();
 const port = 3000;

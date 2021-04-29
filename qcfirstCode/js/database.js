@@ -1,8 +1,10 @@
 const mongoose = require ('mongoose');
 
-mongoose.connect('mongodb+srv://User1:passwrd1234@cluster0.vkrtm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true }, function(err) {
+    if (err) throw err;
+});
 
-const Scehma = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const studentSchema = new Schema ({
     firstName: {type: String, required: true},
