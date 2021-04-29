@@ -1,10 +1,17 @@
-const { response } = require('express');
+//const { response } = require('express');
 const express = require ('express');
 const path = require ('path');
+const bodyParser = require ('body-parser');
 const app = express();
+const router = express.Router();
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, '../')));
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../html', 'index.html'));
+});
 
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, '../html', 'index.html'));
@@ -41,3 +48,12 @@ app.get('/studenthome.html', (req, res) => {
 app.listen(port, () => {
     console.log(`Listening on Port:${port}`)
 });
+
+app.post('/', function(req, res) {
+    //Use findUserLogin function
+})
+
+app.post('/login', function(req, res) {
+    //Use createAndSave Student or Instructor based off button pressed
+    //Then send them back to login to log in
+})
