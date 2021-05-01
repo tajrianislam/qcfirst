@@ -14,7 +14,7 @@
 <body>
 
     <header>
-        <h1><a href ="index.html">QC First</a></h1>
+        <h1><a href ="/login">QC First</a></h1>
         <img class="libPic"  src="../img/qc3.jpeg" alt="Rosenthal">
         <hr>
     </header>
@@ -23,46 +23,45 @@
         <div id="content-wrap">
             
             <h2 class="formHeader">Sign Up</h2>
-
-            <form class="signupFields" method="post" action="/login">
+s
+            <form class="signupFields" method="post" action="/signup">
                 
                 <div class="form">
-                    <label for="firstName" class = "mobileNameSignupField">First Name:</label>
-                    <input type="text" id = "firstName" name = "firstName" placeholder="First Name">
+                    <label for="signupFirstName" class = "mobileNameSignupField">First Name:</label>
+                    <input type="text" id = "signupFirstName" name = "signupFirstName" placeholder="First Name">
                 </div>
                 
                 <div class="formName">
-                    <label for="lastName" class = "mobileNameSignupField">Last Name:</label>
-                    <input type="text" id="lastName" name = "lastName" placeholder="Last Name">
+                    <label for="signupLastName" class = "mobileNameSignupField">Last Name:</label>
+                    <input type="text" id="signupLastName" name = "signupLastName" placeholder="Last Name">
                 </div>
                
                 <div class="form">
-                    <label for="Email" class = "mobileEmailSignupField">Email:</label>
-                    <input type="email" id="Email" name = "Email" placeholder="Email">
+                    <label for="signupEmail" class = "mobileEmailSignupField">Email:</label>
+                    <input type="email" id="signupEmail" name = "signupEmail" placeholder="Email">
                 </div>
                 
                 <div class="formEmail">
-                    <label for="confEmail" class = "mobileConfirmEmailSignupField">Confirm Email:</label>
-                    <input type="email" id="confEmail" name = "confEmail" placeholder="Confirm Email">
+                    <label for="signupConfirmEmail" class = "mobileConfirmEmailSignupField">Confirm Email:</label>
+                    <input type="email" id="signupConfirmEmail" name = "signupConfirmEmail" placeholder="Confirm Email">
                 </div>
                 
                 <div class="form">
-                    <label for="password" class = "mobilePasswordSignupField">Password:</label>
-                    <input type="password" id="password" name = "password" placeholder="Password">
+                    <label for="signupPassword" class = "mobilePasswordSignupField">Password:</label>
+                    <input type="password" id="signupPassword" name = "signupPassword" placeholder="Password">
                 </div>
                 
                 <div class="formPassword">
-                    <label for="confpassword">Confirm Password:</label>
-                    <input type="password" id="confpassword" name = "confpassword" placeholder="Confirm Password">
+                    <label for="signupConfirmPassword">Confirm Password:</label>
+                    <input type="password" id="signupConfirmPassword" name = "signupConfirmPassword" placeholder="Confirm Password">
                 </div> 
+
+                <a href = "/studenthome" class = "formButtonLink"><button name = "signupButton" value = "1" class = "formButton mobileBigFormButton">Student Signup</button></a>
+                <a href = "/instructorhome" class = "formButtonLink"><button name = "signupButton" value = "2" class = "formButton mobileBigFormButton">Instructor Signup</button></a>
                 
             </form>  
-
-            <!-- These buttons are outside of the form temporarily, should be inside with JavaScript -->
-            <a href = "studenthome.html" class = "formButtonLink"><button class = "formButton mobileBigFormButton">Student Signup</button></a>
-            <a href = "instructorhome.html" class = "formButtonLink"><button class = "formButton mobileBigFormButton">Instructor Signup</button></a>
-            
-            <a href = "index.html" class = "formButtonLink"><button class = "formButton">Login</button></a>
+          
+            <a href = "/login" class = "formButtonLink"><button class = "formButton">Login</button></a>
 
         </div>
         
