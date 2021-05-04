@@ -1,8 +1,9 @@
-//const { response } = require('express');
 const express = require ('express');
 const path = require ('path');
 const bodyParser = require ('body-parser');
+const cheerio = require('cheerio');
 const database = require ('./database');
+const fs = require('fs'); 
 const app = express();
 const router = express.Router();
 const port = 3000;
@@ -50,22 +51,92 @@ app.listen(port, () => {
     console.log(`Listening on Port:${port}`)
 });
 
-const findUserLogin = require("./database.js").findUserLogin;
+const findStudentLogin = require("./database.js").findStudentLogin;
+const findInstructorLogin = require("./database.js").findInstructorLogin;
 app.post('/login', function(req, res) {
     
     var email = req.body.emailLogin;
     var password = req.body.passwordLogin;
-
-    findUserLogin(email, password, function(err, user) {
-
-        //First find out whether the user is a student or instructor or if it doesn't exist
-        //Then send the user to the home page depending on what kind of user they are
-        //Javascript should change the html so that in the name appears the name signed up with
-        //ID should be object ID and done
     
-    });
+    var firstName = "";
+    var lastName = "";
+    var id = "";
 
+    if(req.body.loginButton == 1){
+        findStudentLogin(email, password, function(err, student) {
+            
+            if (err) return console.error(err);
 
+            if(student == ""){
+                console.log("Invalid login credentials");
+                res.redirect("/login");
+            } else {
+                var studentJSON = JSON.stringify(student);
+                var studentInfo = JSON.parse(studentJSON);
+
+                for (var i = 0; i < studentInfo.length; i++) {
+                    firstName = (studentInfo[i]['firstName']);
+                    lastName = (studentInfo[i]['lastName']);
+                    id = (studentInfo[i]['_id']);
+                }
+
+                var fullName = firstName + " " + lastName;
+
+                res.redirect("/studenthome");
+                fs.readFile('../html/studenthome.html', 'utf8', function(error, data) {
+
+                    if (error) throw error;
+                
+                    var $ = cheerio.load(data);
+                
+                    $('#studentName').html(fullName);
+                    $('#studentID').html(id);
+
+                    fs.writeFile('../html/studenthome.html', $.html(), function(e, d) {
+                        if (e) throw e;
+                    });
+                });
+            }
+        });
+    } else if(req.body.loginButton == 2) {
+        findInstructorLogin(email, password, function(err, instructor) {
+            
+            if (err) return console.error(err);
+
+            if(instructor == ""){
+                console.log("Invalid login credentials");
+                res.redirect("/login");
+            } else {
+                var instructorJSON = JSON.stringify(instructor);
+                var instructorInfo = JSON.parse(instructorJSON);
+
+                for (var i = 0; i < instructorInfo.length; i++) {
+                    firstName = (instructorInfo[i]['firstName']);
+                    lastName = (instructorInfo[i]['lastName']);
+                    id = (instructorInfo[i]['_id']);
+                }
+
+                var fullName = firstName + " " + lastName;
+
+                res.redirect("/instructorhome");
+                fs.readFile('../html/instructorhome.html', 'utf8', function(error, data) {
+
+                    if (error) throw error;
+                
+                    var $ = cheerio.load(data);
+                
+                    $('#instructorName').html(fullName);
+                    $('#instructorID').html(id);
+
+                    fs.writeFile('../html/instructorhome.html', $.html(), function(e, d) {
+                        if (e) throw e;
+                    });
+                });
+            }
+        });
+    } else if (req.body.loginButton == 3){
+            res.redirect("/signup");
+    }
 });
 
 const createAndSaveStudent = require("./database.js").createAndSaveStudent;
@@ -84,10 +155,12 @@ app.post('/signup', function(req, res) {
             if(err) return(err);
             res.sendFile(path.join(__dirname, '../html', 'studenthome.html'));
         });
-    } else {
+    } else if(req.body.signupButton == 2) {
         createAndSaveInstructor(firstName, lastName, email, confirmEmail, password, confirmPassword, function (err, data) {
             if(err) return(err);
             res.sendFile(path.join(__dirname, '../html', 'instructorhome.html'));
         });
+    } else if(req.body.signupButton == 3) {
+        res.redirect("/login");
     }
-})
+});

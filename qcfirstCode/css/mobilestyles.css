@@ -144,7 +144,18 @@ footer {
     color: red;
 }
 
-.formButton:hover {
+.loginButton {
+    font-family: "Rosario", sans-serif;
+    width: 120px;
+    height: 70px;
+    font-size: 25px;
+    margin: 50px auto;
+    display: block;
+    background-color: #c4c4c4;
+    color: red;
+}
+
+.formButton:hover, .loginButton:hover {
     background-color: rgba(196, 196, 196, 60%);
     cursor: pointer;
 }

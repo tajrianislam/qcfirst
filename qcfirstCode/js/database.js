@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose');
 require('mongoose-type-email');
 
-mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true }, function(err) {
+mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, function(err) {
     if (err) throw err;
 });
 
@@ -10,15 +10,14 @@ const Schema = mongoose.Schema;
 const studentSchema = new Schema ({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
-    email: {type: String, required: true},
+    email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    home: {type: String},
 });
 
 const instructorSchema = new Schema ({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
-    email: {type: mongoose.SchemaTypes.Email, required: true},
+    email: {type: mongoose.SchemaTypes.Email, required: true, unique: true},
     password: {type: String, required: true},
 });
 
@@ -55,41 +54,29 @@ const createAndSaveInstructor = (fName, lName, emailAddress, confirmEmailAddress
     var instructor = new Instructor({firstName: fName, lastName: lName, email: emailAddress, password: pass});
 
     instructor.save(function(err, data) {
-        if (err) 
-            return console.error(err);
+        if (err) return console.error(err);
         
-        done(null, data)
+        done(null, data);
     });
 }
 
-const findUserLogin = (emailAddress, pass, done) => {
+const findStudentLogin = (emailAddress, pass, done) => {
 
-    //Figure out how to authenticate user
+    Student.find({email: emailAddress, password: pass}, function(err, student) {
+        if (err) return console.error(err);
+
+        done(null, student);
+    });
+
+}
+
+const findInstructorLogin = (emailAddress, pass, done) => {
     
-    // Student.countDocuments({email: emailAddress, password: pass}, function (err, count){ 
-       
-    //     if (err) return console.error(err);
-        
-    //     if(count > 0){
-    //         Student.find({email: emailAddress, password: pass}, (error, student) => {
+    Instructor.find({email: emailAddress, password: pass}, function(err, instructor) {
+        if (err) return console.error(err);
 
-    //             if (err) return console.error(err);
-                
-    //             console.log("Student login");       
-    //             done(null, student);
-    //         });
-    //     }
-    // });
-
-    // Instructor.countDocuments({email: emailAddress, password: pass}, function (err, count){ 
-    //     if(count > 0){
-    //         Student.find({email: emailAddress, password: pass}, (error, student) => {
-    //             return console.log("Login Successful");
-    //         });
-    //     }
-    // }); 
-    
-    //return console.error("Login Failed");
+        done(null, instructor);
+    });
 }
 
 
@@ -97,4 +84,5 @@ exports.StudentModel = Student;
 exports.InstructorModel = Instructor;
 exports.createAndSaveStudent = createAndSaveStudent;
 exports.createAndSaveInstructor = createAndSaveInstructor;
-exports.findUserLogin = findUserLogin;
+exports.findStudentLogin = findStudentLogin;
+exports.findInstructorLogin = findInstructorLogin;
