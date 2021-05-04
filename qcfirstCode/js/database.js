@@ -33,7 +33,7 @@ const createAndSaveStudent = (fName, lName, emailAddress, confirmEmailAddress, p
     if(pass != confirmPass)
         return console.error("Passwords do not match");
     
-    var student = new Student({firstName: fName, lastName: lName, email: emailAddress, password: pass, home: "/studenthome"});
+    var student = new Student({firstName: fName, lastName: lName, email: emailAddress, password: pass});
 
     student.save(function(err, data) {
         if (err) 
