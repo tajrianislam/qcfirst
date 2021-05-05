@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
+    <link rel="stylesheet" media="screen and (min-width: 750px)" href="../css/desktopstyles.css">
+    <link rel="stylesheet" media="screen and (max-width: 750px)" href="../css/mobilestyles.css">
+
+    <title>Signup Page</title>
+</head>
+
+<body>
+
+    <header>
+        <h1><a href ="/login">QC First</a></h1>
+        <img class="libPic"  src="../img/qc3.jpeg" alt="Rosenthal">
+        <hr>
+    </header>
+
+    <div id="page-container">
+        <div id="content-wrap">
+            
+            <h2 class="formHeader">Sign Up</h2>
+
+            <form class="signupFields" method="post" action="/signup">
+                
+                <div class="form">
+                    <label for="signupFirstName" class = "mobileNameSignupField">First Name:</label>
+                    <input type="text" id = "signupFirstName" name = "signupFirstName" placeholder="First Name">
+                </div>
+                
+                <div class="formName">
+                    <label for="signupLastName" class = "mobileNameSignupField">Last Name:</label>
+                    <input type="text" id="signupLastName" name = "signupLastName" placeholder="Last Name">
+                </div>
+               
+                <div class="form">
+                    <label for="signupEmail" class = "mobileEmailSignupField">Email:</label>
+                    <input type="email" id="signupEmail" name = "signupEmail" placeholder="Email">
+                </div>
+                
+                <div class="formEmail">
+                    <label for="signupConfirmEmail" class = "mobileConfirmEmailSignupField">Confirm Email:</label>
+                    <input type="email" id="signupConfirmEmail" name = "signupConfirmEmail" placeholder="Confirm Email">
+                </div>
+                
+                <div class="form">
+                    <label for="signupPassword" class = "mobilePasswordSignupField">Password:</label>
+                    <input type="password" id="signupPassword" name = "signupPassword" placeholder="Password">
+                </div>
+                
+                <div class="formPassword">
+                    <label for="signupConfirmPassword">Confirm Password:</label>
+                    <input type="password" id="signupConfirmPassword" name = "signupConfirmPassword" placeholder="Confirm Password">
+                </div> 
+
+                <button name = "signupButton" value = "1" class = "formButton mobileBigFormButton">Student Signup</button>
+                <button name = "signupButton" value = "2" class = "formButton mobileBigFormButton">Instructor Signup</button>
+                <button name = "signupButton" value = "3" class = "formButton">Login</button>
+            
+            </form>  
+
+        </div>
+        
+        <footer>
+            <hr>
+            <ul class = "footerList">
+                <li><a class = "footerButton">Terms Of Use</a></li>
+                <li><a href = "https://twitter.com/QC_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" class = "footerButton" id = "contactUs">Contact Us</a></li>
+                <li><a class = "footerButton">Copyright 2021</a></li>
+            </ul> 
+        </footer>
+
+    </div>   
+</body>
+</html>

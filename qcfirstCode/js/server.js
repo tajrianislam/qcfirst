@@ -10,41 +10,47 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, '../')));
 app.use(bodyParser.urlencoded({extended: true}));
+app.set('../html');
+app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html', 'index.html'));
+    res.render('index', {hello: ''});
 });
 
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html', 'index.html'));
+    res.render('index', {hello: ''});
+});
+
+app.get('/login_successfulSignup', (req, res) => {
+    res.render("index", {hello: '<h2 class="successfulSignup">Successful Signup! Sign in </h2>'});
 });
 
 app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html', 'signup.html'));
+    res.render('signup');
 });
 
 app.get('/instructorcreate', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html', 'instructorcreate.html'));
+    res.render('instructorcreate');
 });
 
 app.get('/instructorhome', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html', 'instructorhome.html'));
+    res.render('instructorhome');
 });
 
 app.get('/instructorroster', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html', 'instructorroster.html'));
+    res.render('instructorroster');
 });
 
 app.get('/studentcourses', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html', 'studentcourses.html'));
+    res.render('studentcourses');
 });
 
 app.get('/studentenroll', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html', 'studentenroll.html'));
+    res.render('studentenroll');
 });
 
 app.get('/studenthome', (req, res) => {
-    res.sendFile(path.join(__dirname, '../html', 'studenthome.html'));
+    res.render('studenthome');
 });
 
 app.listen(port, () => {
@@ -68,8 +74,7 @@ app.post('/login', function(req, res) {
             if (err) return console.error(err);
 
             if(student == ""){
-                console.log("Invalid login credentials");
-                res.redirect("/login");
+                res.render("index", {hello: '<h2 class="invalidLogin"> Invalid Login </h2>'});
             } else {
                 var studentJSON = JSON.stringify(student);
                 var studentInfo = JSON.parse(studentJSON);
@@ -81,21 +86,6 @@ app.post('/login', function(req, res) {
                 }
 
                 var fullName = firstName + " " + lastName;
-
-                res.redirect("/studenthome");
-                fs.readFile('../html/studenthome.html', 'utf8', function(error, data) {
-
-                    if (error) throw error;
-                
-                    var $ = cheerio.load(data);
-                
-                    $('#studentName').html(fullName);
-                    $('#studentID').html(id);
-
-                    fs.writeFile('../html/studenthome.html', $.html(), function(e, d) {
-                        if (e) throw e;
-                    });
-                });
             }
         });
     } else if(req.body.loginButton == 2) {
@@ -104,8 +94,7 @@ app.post('/login', function(req, res) {
             if (err) return console.error(err);
 
             if(instructor == ""){
-                console.log("Invalid login credentials");
-                res.redirect("/login");
+                res.render("index", {hello: '<h2 class="invalidLogin"> Invalid Login </h2>'});
             } else {
                 var instructorJSON = JSON.stringify(instructor);
                 var instructorInfo = JSON.parse(instructorJSON);
@@ -117,21 +106,6 @@ app.post('/login', function(req, res) {
                 }
 
                 var fullName = firstName + " " + lastName;
-
-                res.redirect("/instructorhome");
-                fs.readFile('../html/instructorhome.html', 'utf8', function(error, data) {
-
-                    if (error) throw error;
-                
-                    var $ = cheerio.load(data);
-                
-                    $('#instructorName').html(fullName);
-                    $('#instructorID').html(id);
-
-                    fs.writeFile('../html/instructorhome.html', $.html(), function(e, d) {
-                        if (e) throw e;
-                    });
-                });
             }
         });
     } else if (req.body.loginButton == 3){
@@ -153,12 +127,12 @@ app.post('/signup', function(req, res) {
     if(req.body.signupButton == 1){
         createAndSaveStudent(firstName, lastName, email, confirmEmail, password, confirmPassword, function (err, data) {
             if(err) return(err);
-            res.sendFile(path.join(__dirname, '../html', 'studenthome.html'));
+            res.redirect("/login_successfulSignup");
         });
     } else if(req.body.signupButton == 2) {
         createAndSaveInstructor(firstName, lastName, email, confirmEmail, password, confirmPassword, function (err, data) {
             if(err) return(err);
-            res.sendFile(path.join(__dirname, '../html', 'instructorhome.html'));
+            res.redirect("/login_successfulSignup");
         });
     } else if(req.body.signupButton == 3) {
         res.redirect("/login");

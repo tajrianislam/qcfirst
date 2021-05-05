@@ -185,6 +185,33 @@ footer {
     padding-bottom: 40px;
 }
 
+.loginMessage {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.invalidLogin { 
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: red;
+    padding: 20px;
+    margin-top: -35px;
+    font-family: "Alice", serif;
+}
+
+.successfulSignup {
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: green;
+    padding: 20px;
+    margin-top: -35px;
+    font-family: "Alice", serif;
+}
+
 /* Student Home, Instructor Home, Instructor Roster*/
 
 .leftLabels {
