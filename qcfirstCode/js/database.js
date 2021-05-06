@@ -24,7 +24,6 @@ const instructorSchema = new Schema ({
 const Student = mongoose.model("Student", studentSchema);
 const Instructor = mongoose.model("Instructor", instructorSchema);
 
-
 const createAndSaveStudent = (fName, lName, emailAddress, confirmEmailAddress, pass, confirmPass, done) => {
 
     if(emailAddress != confirmEmailAddress)
@@ -36,8 +35,7 @@ const createAndSaveStudent = (fName, lName, emailAddress, confirmEmailAddress, p
     var student = new Student({firstName: fName, lastName: lName, email: emailAddress, password: pass});
 
     student.save(function(err, data) {
-        if (err) 
-            return console.error(err);
+        if (err) console.error(err);
         
         done(null, data)
     });
@@ -54,7 +52,7 @@ const createAndSaveInstructor = (fName, lName, emailAddress, confirmEmailAddress
     var instructor = new Instructor({firstName: fName, lastName: lName, email: emailAddress, password: pass});
 
     instructor.save(function(err, data) {
-        if (err) return console.error(err);
+        if (err) console.error(err);
         
         done(null, data);
     });

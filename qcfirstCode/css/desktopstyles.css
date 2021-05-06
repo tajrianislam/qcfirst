@@ -69,6 +69,29 @@ h1 a {
     cursor: pointer;
 }
 
+.logoutButton {
+    display: inline;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    background-color: #c4c4c4;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: -10px;
+    font-weight: bold;
+    font-family: "Rosario", sans-serif;
+}
+
+.logoutButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
 .footerList {
     font-family: "Rosario", sans-serif;
     list-style: none;
@@ -185,12 +208,12 @@ footer {
     padding-bottom: 40px;
 }
 
-.loginMessage {
+.popupMessage {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.invalidLogin { 
+.invalid { 
     display: inline-block;
     text-align: center;
     font-size: 25px;
@@ -201,7 +224,7 @@ footer {
     font-family: "Alice", serif;
 }
 
-.successfulSignup {
+.successful {
     display: inline-block;
     text-align: center;
     font-size: 25px;

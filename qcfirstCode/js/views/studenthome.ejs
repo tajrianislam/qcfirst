@@ -19,7 +19,12 @@
             <li><a href="/studenthome" class="headerButton">Home</a></li>
             <li><a href="/studentenroll" class="headerButton">Enroll</a></li> 
             <li><a href="https://www.qc.cuny.edu/pages/calendar.aspx" class="headerButton" target="_blank">Calendar</a></li> 
-            <li><a href="/login" class="headerButton">Logout</a></li>   
+            <li><a href="/login" class="headerButton">Logout</a></li>
+            <!-- <li>
+                <form method="post" action="/logout">
+                    <button name="logoutButton" class="logoutButton">Logout</button>
+                </form>
+            </li> -->
         </ul>
     </header>
     
@@ -28,12 +33,12 @@
             
                 <div class="leftLabelsSpacing">
                     <p class="leftLabels">Full Name :</p>
-                    <p class="leftValue" id="studentName">Daven Santana</p>   
+                    <p class="leftValue"> <%- studentName%> </p>   
                 </div>
                 
                 <div>
                     <p class="leftLabels">Student ID :</p>
-                    <p class="leftValue" id="studentID">6090c42da859c53b68e01157</p>
+                    <p class="leftValue"> <%- studentID%> </p>
                 </div>
                 
             

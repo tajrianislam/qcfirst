@@ -245,12 +245,12 @@ footer {
     padding-bottom: 40px;
 }
 
-.loginMessage {
+.popupMessage {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.invalidLogin { 
+.invalid { 
     display: inline-block;
     text-align: center;
     font-size: 20px;
@@ -261,7 +261,7 @@ footer {
     font-family: "Alice", serif;
 }
 
-.successfulSignup {
+.successful {
     display: inline-block;
     text-align: center;
     font-size: 20px;

@@ -13,44 +13,74 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('../html');
 app.set('view engine', 'ejs')
 
+var fullName = "";
+var id = "";
+var studentLoggedIn = false;
+var instructorLoggedIn = false;
+
+
 app.get('/', (req, res) => {
-    res.render('index', {hello: ''});
+    res.render('index', {loginmessage: ''});
 });
 
 app.get('/login', (req, res) => {
-    res.render('index', {hello: ''});
+    res.render('index', {loginmessage: ''});
 });
 
 app.get('/login_successfulSignup', (req, res) => {
-    res.render("index", {hello: '<h2 class="successfulSignup">Successful Signup! Sign in </h2>'});
+    res.render('index', {loginmessage: '<h2 class="successful">Successful Signup! Sign in </h2>'});
 });
 
 app.get('/signup', (req, res) => {
-    res.render('signup');
+    res.render('signup', {signupmessage: ''});
 });
 
 app.get('/instructorcreate', (req, res) => {
-    res.render('instructorcreate');
+    if(instructorLoggedIn){
+        res.render("instructorcreate");
+    } else {
+        res.redirect("/login");
+    }
 });
 
 app.get('/instructorhome', (req, res) => {
-    res.render('instructorhome');
+    if(instructorLoggedIn){
+        res.render("instructorhome", {instructorName: fullName, instructorID: id});
+    } else {
+        res.redirect("/login");
+    }
 });
 
 app.get('/instructorroster', (req, res) => {
-    res.render('instructorroster');
+    if(instructorLoggedIn){
+        res.render("instructorroster");
+    } else {
+        res.redirect("/login");
+    }
 });
 
 app.get('/studentcourses', (req, res) => {
-    res.render('studentcourses');
+    if(studentLoggedIn){
+        res.render("studentcourses");
+    } else {
+        res.redirect("/login");
+    }
 });
 
 app.get('/studentenroll', (req, res) => {
-    res.render('studentenroll');
+    if(studentLoggedIn){
+        res.render("studentenroll");
+    } else {
+        res.redirect("/login");
+    }
 });
 
 app.get('/studenthome', (req, res) => {
-    res.render('studenthome');
+    if(studentLoggedIn){
+    res.render("studenthome", {studentName: fullName, studentID: id});
+    } else {
+        res.redirect("/login");
+    }
 });
 
 app.listen(port, () => {
@@ -66,7 +96,6 @@ app.post('/login', function(req, res) {
     
     var firstName = "";
     var lastName = "";
-    var id = "";
 
     if(req.body.loginButton == 1){
         findStudentLogin(email, password, function(err, student) {
@@ -74,7 +103,7 @@ app.post('/login', function(req, res) {
             if (err) return console.error(err);
 
             if(student == ""){
-                res.render("index", {hello: '<h2 class="invalidLogin"> Invalid Login </h2>'});
+                res.render("index", {loginmessage: '<h2 class="invalid"> Invalid Login </h2>'});
             } else {
                 var studentJSON = JSON.stringify(student);
                 var studentInfo = JSON.parse(studentJSON);
@@ -85,7 +114,13 @@ app.post('/login', function(req, res) {
                     id = (studentInfo[i]['_id']);
                 }
 
-                var fullName = firstName + " " + lastName;
+                fullName = firstName + " " + lastName;
+
+                fullName = firstName + " " + lastName;
+                instructorLoggedIn = false;
+                studentLoggedIn = true;
+
+                res.redirect("studenthome");
             }
         });
     } else if(req.body.loginButton == 2) {
@@ -94,7 +129,7 @@ app.post('/login', function(req, res) {
             if (err) return console.error(err);
 
             if(instructor == ""){
-                res.render("index", {hello: '<h2 class="invalidLogin"> Invalid Login </h2>'});
+                res.render("index", {loginmessage: '<h2 class="invalid"> Invalid Login </h2>'});
             } else {
                 var instructorJSON = JSON.stringify(instructor);
                 var instructorInfo = JSON.parse(instructorJSON);
@@ -105,7 +140,11 @@ app.post('/login', function(req, res) {
                     id = (instructorInfo[i]['_id']);
                 }
 
-                var fullName = firstName + " " + lastName;
+                fullName = firstName + " " + lastName;
+                instructorLoggedIn = true;
+                studentLoggedIn = false;
+
+                res.redirect("instructorhome");
             }
         });
     } else if (req.body.loginButton == 3){
@@ -126,13 +165,23 @@ app.post('/signup', function(req, res) {
 
     if(req.body.signupButton == 1){
         createAndSaveStudent(firstName, lastName, email, confirmEmail, password, confirmPassword, function (err, data) {
-            if(err) return(err);
-            res.redirect("/login_successfulSignup");
+            if(err){
+                return(err);
+            }else if(!data){
+                res.render("signup", {signupmessage: '<h2 class="invalid"> Invalid Signup </h2>'});
+            } else {
+                res.redirect("/login_successfulSignup");
+            }
         });
     } else if(req.body.signupButton == 2) {
         createAndSaveInstructor(firstName, lastName, email, confirmEmail, password, confirmPassword, function (err, data) {
-            if(err) return(err);
-            res.redirect("/login_successfulSignup");
+            if(err){
+                return(err);
+            }else if(!data){
+                res.render("signup", {signupmessage: '<h2 class="invalid"> Invalid Signup </h2>'});
+            } else {
+                res.redirect("/login_successfulSignup");
+            }
         });
     } else if(req.body.signupButton == 3) {
         res.redirect("/login");
