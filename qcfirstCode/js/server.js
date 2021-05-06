@@ -87,6 +87,13 @@ app.listen(port, () => {
     console.log(`Listening on Port:${port}`)
 });
 
+app.post('/logout', function(req, res) {
+    instructorLoggedIn = false;
+    studentLoggedIn = false;
+    
+    res.redirect('/login');
+})
+
 const findStudentLogin = require("./database.js").findStudentLogin;
 const findInstructorLogin = require("./database.js").findInstructorLogin;
 app.post('/login', function(req, res) {

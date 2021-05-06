@@ -21,7 +21,11 @@
             <li><a href = "/studenthome" class = "headerButton">Home</a></li>
             <li><a href = "/studentenroll" class = "headerButton">Enroll</a></li> 
             <li><a href = "https://www.qc.cuny.edu/pages/calendar.aspx" class = "headerButton" target = "_blank">Calendar</a></li> 
-            <li><a href = "/login" class = "headerButton">Logout</a></li>   
+            <li>
+                <form method="post" action="/logout">
+                    <button name="logoutButton" class="logoutButton">Logout</button>
+                </form>
+            </li>
         </ul>
     </header>
     

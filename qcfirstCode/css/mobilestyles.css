@@ -67,6 +67,29 @@ h1 a {
     cursor: pointer;
 }
 
+.logoutButton {
+    display: inline;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    background-color: #c4c4c4;
+    padding: 7px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: -7px;
+    font-weight: bold;
+    font-family: "Rosario", sans-serif;
+}
+
+.logoutButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 350px) {
     .headerButton {
         background-color: #c4c4c4;
@@ -75,6 +98,24 @@ h1 a {
         color: black;
         font-weight: bold;
         font-size: 15px;
+    }
+    
+    .logoutButton {
+        display: inline;
+        border: none;
+        outline: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        background-color: #c4c4c4;
+        padding: 7px;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+        margin-top: -7px;
+        font-weight: bold;
+        font-family: "Rosario", sans-serif;
     }
 }
 

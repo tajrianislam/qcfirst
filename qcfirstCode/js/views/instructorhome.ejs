@@ -20,7 +20,11 @@
             <li><a href="/instructorhome" class="headerButton">Home</a></li>
             <li><a href="/instructorcreate" class="headerButton">Create</a></li> 
             <li><a href="/instructorroster" class="headerButton">Roster</a></li>
-            <li><a href="/login" class="headerButton">Logout</a></li>       
+            <li>
+                <form method="post" action="/logout">
+                    <button name="logoutButton" class="logoutButton">Logout</button>
+                </form>
+            </li>
         </ul>
     </header>
     
