@@ -24,15 +24,33 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    res.render('index', {loginmessage: ''});
+    if(studentLoggedIn) {
+        res.redirect('/studenthome')
+    } else if (instructorLoggedIn) {
+        res.redirect('/instructorhome')
+    } else {
+         res.render('index', {loginmessage: ''});
+    }
 });
 
 app.get('/login_successfulSignup', (req, res) => {
-    res.render('index', {loginmessage: '<h2 class="successful">Successful Signup! Sign in </h2>'});
+    if(studentLoggedIn) {
+        res.redirect('/studenthome')
+    } else if (instructorLoggedIn) {
+        res.redirect('/instructorhome')
+    } else {
+        res.render('index', {loginmessage: '<h2 class="successful">Successful Signup! Sign in </h2>'});
+    }
 });
 
 app.get('/signup', (req, res) => {
-    res.render('signup', {signupmessage: ''});
+    if(studentLoggedIn) {
+        res.redirect('/studenthome')
+    } else if (instructorLoggedIn) {
+        res.redirect('/instructorhome')
+    } else {
+        res.render('signup', {signupmessage: ''});
+    }
 });
 
 app.get('/instructorcreate', (req, res) => {
