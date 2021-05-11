@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
     <link rel="stylesheet" media="screen and (min-width: 750px)" href="../css/desktopstyles.css">
     <link rel="stylesheet" media="screen and (max-width: 750px)" href="../css/mobilestyles.css">
+    <script src="../js/somecode.js" async></script>
 
     <title>Instructor Create Course</title>
 </head>
@@ -21,56 +22,102 @@
             <li><a href = "/instructorhome" class = "headerButton">Home</a></li>
             <li><a href = "/instructorcreate" class = "headerButton">Create</a></li> 
             <li><a href = "/instructorroster" class = "headerButton">Roster</a></li>
-            <li><a href = "/login" class = "headerButton">Logout</a></li>       
+            <li>
+                <form method="post" action="/logout">
+                    <button name="logoutButton" class="logoutButton">Logout</button>
+                </form>
+            </li>
         </ul>
     </header>
 
     <div id="page-container">
         <div id="content-wrap">
-            
-            <form class = "leftHandSideForCreate-fields">
+
+            <div id="courseCreateInvalidMessage" class="popupMessage" hidden>
+                <h2 id="courseCreateMessage" class="invalid">  </h2>
+            </div>
+
+            <form method="post" action="/createClass" class = "leftHandSideForCreate-fields">
                
                 <div class = "form">
-                    <label for="semester" class = "semesterCapacityCreate">Semester:</label>
-                    <select name = "semesterCreate" id = "semester">
+                    <label for="createCourseSemester">Semester:</label>
+                    <select name = "createCourseSemester" id = "createCourseSemester">
                         <option value = "" disabled selected hidden>Choose an option</option>
-                    </select>
+                        <option value = "Spring 2021">Spring 2021</option>
+                        <option value = "Summer 2021">Summer 2021</option>
+                        <option value = "Fall 2021">Fall 2021</option>
+                        <option value = "Winter 2022">Winter 2022</option>
+                        <option value = "Spring 2022">Spring 2022</option>
+                        <option value = "Summer 2022">Summer 2022</option>
+                    </select> 
                 </div>   
                
                 
                 <div class="form">
-                    <label for="dept" class = "departmentCreate">Department:</label>
-                    <select name = "departmentCreate" id = "dept">
+                    <label for="createCourseDepartment">Department:</label>
+                    <select name = "createCourseDepartment" id = "createCourseDepartment">
                         <option value = "" disabled selected hidden>Choose an option</option>
+                        <option value = "CSCI">CSCI</option>
+                        <option value = "ENGL">ENGL</option>
+                        <option value = "MATH">MATH</option>
                     </select>
                 </div>
               
                 
                 <div class="form">
-                    <label for="course" class = "courseInstructorCreate">Course:</label>
-                    <select name = "courseCreate" id = "course">
+                    <label for="createCourseNumber">Course:</label>
+                    <select name = "createCourseNumber" id = "createCourseNumber">
+                        <option value = "" disabled selected hidden>Choose a department</option>
+                    </select>
+                </div>
+
+                <div class="form">
+                    <label for="createCourseDays">Class Day(s):</label>
+                    <select name = "createCourseDays" id = "createCourseDays">
                         <option value = "" disabled selected hidden>Choose an option</option>
+                        <option value = "Monday">Monday</option>
+                        <option value = "Tuesday">Tuesday</option>
+                        <option value = "Wednesday">Wednesday</option>
+                        <option value = "Thursday">Thursday</option>
+                        <option value = "Friday">Friday</option>
+                        <option value = "Saturday">Saturday</option>
+                        <option value = "Sunday">Sunday</option>
+                        <option value = "Mon/Wed">Mon/Wed</option>
+                        <option value = "Tues/Thurs">Tues/Thurs</option>
                     </select>
                 </div>
                 
                 <div class="form">
-                    <label for="classtime" class = "courseClassTimeCreate">Class Time:</label>
-                    <select name = "classtimeCreate" id = "classtime">
+                    <label for="createCourseClassTime">Class Time:</label>
+                    <select name = "createCourseClassTime" id = "createCourseClassTime">
                         <option value = "" disabled selected hidden>Choose an option</option>
+                        <option value = "7:45AM-9:00AM">7:45AM-9:00AM</option>
+                        <option value = "8:00AM-9:15AM">8:00AM-9:15AM</option>
+                        <option value = "8:00AM-10:50AM">8:00AM-10:50AM</option>
+                        <option value = "8:30AM-9:45AM">8:30AM-9:45AM</option>
+                        <option value = "9:30AM-10:45AM">9:15AM-10:30AM</option>
+                        <option value = "10:00AM-12:50PM">10:00AM-12:50PM</option>
+                        <option value = "10:45AM-12:00PM">10:45AM-12:00PM</option>
+                        <option value = "12:15PM-1:30PM">12:15PM-1:30PM</option>
+                        <option value = "1:40PM-2:55PM">1:40PM-2:55PM</option>
+                        <option value = "3:10PM-4:25PM">3:10PM-4:25PM</option>
+                        <option value = "5:00PM-6:25PM">5:00PM-6:25PM</option>
+                        <option value = "6:35PM-7:50PM">6:35PM-7:50PM</option>
+                        <option value = "8:00PM-9:15PM">8:00PM-9:15PM</option>
                     </select>
                 </div>
                 
                 <div class="form">
-                    <label for="capacityCreate" class = "semesterCapacityCreate">Capacity:</label>
-                    <input type="number" id="capacityCreate" name = "capacityCreate">
+                    <label for="createCourseCapacity">Capacity:</label>
+                    <input type="number" id="createCourseCapacity" name = "createCourseCapacity" min="0">
                 </div>
                
                 <div class="form">
-                    <label for="desc" class = "descriptionCreate">Description:</label>
-                    <textarea name="descriptionCreate" id="desc" cols="50" rows="4"></textarea>
+                    <label for="createCourseDescription">Description:</label>
+                    <textarea name="createCourseDescription" id="createCourseDescription" cols="50" rows="4"></textarea>
                 </div> 
 
-                <button class="createCourse">Create Course</button>
+                <button id="createCourseButton" class="createCourse">Create Course</button>
             </form>
         
         </div>

@@ -24,7 +24,7 @@ const instructorSchema = new Schema ({
 const Student = mongoose.model("Student", studentSchema);
 const Instructor = mongoose.model("Instructor", instructorSchema);
 
-const createAndSaveStudent = (fName, lName, emailAddress, confirmEmailAddress, pass, confirmPass, done) => {
+const createAndSaveStudent = (fName, lName, emailAddress, pass, done) => {
 
     var student = new Student({firstName: fName, lastName: lName, email: emailAddress, password: pass});
 
@@ -35,14 +35,8 @@ const createAndSaveStudent = (fName, lName, emailAddress, confirmEmailAddress, p
     });
 }
 
-const createAndSaveInstructor = (fName, lName, emailAddress, confirmEmailAddress, pass, confirmPass, done) => {
+const createAndSaveInstructor = (fName, lName, emailAddress, pass, done) => {
 
-    if(emailAddress != confirmEmailAddress)
-        return console.error("Emails do not match");
-
-    if(pass != confirmPass)
-        return console.error("Passwords do not match");
-    
     var instructor = new Instructor({firstName: fName, lastName: lName, email: emailAddress, password: pass});
 
     instructor.save(function(err, data) {
@@ -78,3 +72,48 @@ exports.createAndSaveStudent = createAndSaveStudent;
 exports.createAndSaveInstructor = createAndSaveInstructor;
 exports.findStudentLogin = findStudentLogin;
 exports.findInstructorLogin = findInstructorLogin;
+
+const courseSchema = new Schema ({
+    courseID: {type: Number, required: true, unique: true},
+    semester: {type: String, required: true},
+    courseDept: {type: String, required: true},
+    courseNumberName: {type: String, required: true},
+    courseDays: {type: String, required: true},
+    courseTime: {type: String, required: true},
+    courseProfessor: {type: String, required: true},
+    courseCapacity: {type: Number, required: true},
+    courseDescription: {type: String, required: true},
+    studentsEnrolled: {type: Array}
+});
+
+const Course = mongoose.model("Course", courseSchema);
+
+const createAndSaveCourse = (sem, dept, numberName, days, time, professor, capacity, description, done) => {
+
+    let randomValue = createRandomCourseID();
+
+    var course = new Course({courseID: randomValue, semester: sem, courseDept: dept, courseNumberName: numberName, courseDays: days, courseTime: time, courseProfessor: professor, courseCapacity: capacity, courseDescription: description});
+
+    course.save(function(err, data) {
+        if (err) console.error(err);
+        
+        done(null, data);
+    });
+}
+
+const createRandomCourseID = () => {
+    var randomValue = Math.floor(Math.random()*90000) + 10000;
+
+    Course.exists({courseID: randomValue}, function (err, doc) {
+        if(doc) {
+            return createRandomCourseID();
+        } else {
+            return randomValue;
+        }
+    });
+
+    return randomValue;
+};
+
+exports.CourseModel = Course;
+exports.createAndSaveCourse = createAndSaveCourse;

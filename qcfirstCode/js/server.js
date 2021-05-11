@@ -55,7 +55,7 @@ app.get('/signup', (req, res) => {
 
 app.get('/instructorcreate', (req, res) => {
     if(instructorLoggedIn){
-        res.render("instructorcreate");
+        res.sendFile(path.join(__dirname, '../html', 'instructorcreate.html'));
     } else {
         res.redirect("/login");
     }
@@ -152,13 +152,11 @@ app.post('/login', function(req, res) {
             if(instructor == ""){
                 res.render("index", {loginmessage: '<h2 class="invalid"> Invalid Login </h2>'});
             } else {
-                var instructorJSON = JSON.stringify(instructor);
-                var instructorInfo = JSON.parse(instructorJSON);
 
-                for (var i = 0; i < instructorInfo.length; i++) {
-                    firstName = (instructorInfo[i]['firstName']);
-                    lastName = (instructorInfo[i]['lastName']);
-                    id = (instructorInfo[i]['_id']);
+                for (var i = 0; i < instructor.length; i++) {
+                    firstName = (instructor[i]['firstName']);
+                    lastName = (instructor[i]['lastName']);
+                    id = (instructor[i]['_id']);
                 }
 
                 fullName = firstName + " " + lastName;
@@ -186,47 +184,67 @@ app.post('/signup', function(req, res) {
 
     var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-    if(firstName == "" || lastName == "") {
-        res.render("signup", {signupmessage: '<h2 class="invalid"> Names cannot be empty! </h2>'});
+    if(req.body.signupButton == 3) {
+        res.redirect("/login");
+    } else if(firstName == "" || lastName == "") {
+        res.render("signup", {signupmessage: '<h2 class="invalid"> Name cannot be empty! </h2>'});
         return;
-    }
-
-    if(email != confirmEmail) {
+    } else if(email == "" || confirmEmail == ""){
+        res.render("signup", {signupmessage: '<h2 class="invalid"> Email cannot be empty! </h2>'});
+        return;
+    } else if(password == "" || confirmPassword == ""){
+        res.render("signup", {signupmessage: '<h2 class="invalid"> Password cannot be empty! </h2>'});
+        return;
+    }else if(email != confirmEmail) {
         res.render("signup", {signupmessage: '<h2 class="invalid"> Emails do not match! </h2>'});
         return;
-    }
-        
-    if(password != confirmPassword) {
+    } else if(password != confirmPassword) {
         res.render("signup", {signupmessage: '<h2 class="invalid"> Passwords do not match! </h2>'});
         return;
-    }
-
-    if(!password.match(passwordRegex)) {
+    } else if(!password.match(passwordRegex)) {
         res.render("signup", {signupmessage: '<h2 class="invalid"> Password does not fulfill requirements! </h2>'});
         return;
     }
 
     if(req.body.signupButton == 1) {
-        createAndSaveStudent(firstName, lastName, email, confirmEmail, password, confirmPassword, function (err, data) {
+        createAndSaveStudent(firstName, lastName, email, password, function (err, data) {
             if(err){
                 return(err);
             }else if(!data){
-                res.render("signup", {signupmessage: '<h2 class="invalid"> Invalid Signup </h2>'});
+                res.render("signup", {signupmessage: '<h2 class="invalid"> Email already exists! </h2>'});
             } else {
                 res.redirect("/login_successfulSignup");
             }
         });
     } else if(req.body.signupButton == 2) {
-        createAndSaveInstructor(firstName, lastName, email, confirmEmail, password, confirmPassword, function (err, data) {
+        createAndSaveInstructor(firstName, lastName, email, password, function (err, data) {
             if(err){
                 return(err);
             }else if(!data){
-                res.render("signup", {signupmessage: '<h2 class="invalid"> Invalid Signup </h2>'});
+                res.render("signup", {signupmessage: '<h2 class="invalid"> Email already exists! </h2>'});
             } else {
                 res.redirect("/login_successfulSignup");
             }
         });
-    } else if(req.body.signupButton == 3) {
-        res.redirect("/login");
     }
+});
+
+const createAndSaveCourse = require("./database.js").createAndSaveCourse;
+app.post('/createClass', function(req, res) { 
+    
+    var semester = req.body.createCourseSemester;
+    var department = req.body.createCourseDepartment;
+    var numberName = req.body.createCourseNumber;
+    var days = req.body.createCourseDays;
+    var time = req.body.createCourseClassTime;
+    var capacity = req.body.createCourseCapacity;
+    var description = req.body.createCourseDescription;
+
+    createAndSaveCourse(semester, department, numberName, days, time, fullName, capacity, description, function(err, data) {
+        if(err){
+            return(err);
+        }else if(data){
+            res.redirect("/instructorhome");
+        } 
+    });
 });
