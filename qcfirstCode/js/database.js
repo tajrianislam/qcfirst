@@ -10,7 +10,7 @@ const Schema = mongoose.Schema;
 const studentSchema = new Schema ({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
-    email: {type: String, required: true, unique: true},
+    email: {type: mongoose.SchemaTypes.Email, required: true, unique: true},
     password: {type: String, required: true},
 });
 
@@ -26,12 +26,6 @@ const Instructor = mongoose.model("Instructor", instructorSchema);
 
 const createAndSaveStudent = (fName, lName, emailAddress, confirmEmailAddress, pass, confirmPass, done) => {
 
-    if(emailAddress != confirmEmailAddress)
-        return console.error("Emails do not match");
-
-    if(pass != confirmPass)
-        return console.error("Passwords do not match");
-    
     var student = new Student({firstName: fName, lastName: lName, email: emailAddress, password: pass});
 
     student.save(function(err, data) {

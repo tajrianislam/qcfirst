@@ -208,6 +208,11 @@ footer {
     padding-bottom: 40px;
 }
 
+.passwordReq {
+    font-size: 12px;
+    color: red;
+}
+
 .popupMessage {
     text-align: center;
     margin-bottom: 20px;

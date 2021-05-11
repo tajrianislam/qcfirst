@@ -130,17 +130,13 @@ app.post('/login', function(req, res) {
             if(student == ""){
                 res.render("index", {loginmessage: '<h2 class="invalid"> Invalid Login </h2>'});
             } else {
-                var studentJSON = JSON.stringify(student);
-                var studentInfo = JSON.parse(studentJSON);
 
-                for (var i = 0; i < studentInfo.length; i++) {
-                    firstName = (studentInfo[i]['firstName']);
-                    lastName = (studentInfo[i]['lastName']);
-                    id = (studentInfo[i]['_id']);
+                for (var i = 0; i < student.length; i++) {
+                    firstName = (student[i]['firstName']);
+                    lastName = (student[i]['lastName']);
+                    id = (student[i]['_id']);
                 }
-
-                fullName = firstName + " " + lastName;
-
+               
                 fullName = firstName + " " + lastName;
                 instructorLoggedIn = false;
                 studentLoggedIn = true;
@@ -188,7 +184,29 @@ app.post('/signup', function(req, res) {
     var password = req.body.signupPassword;
     var confirmPassword = req.body.signupConfirmPassword;
 
-    if(req.body.signupButton == 1){
+    var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    if(firstName == "" || lastName == "") {
+        res.render("signup", {signupmessage: '<h2 class="invalid"> Names cannot be empty! </h2>'});
+        return;
+    }
+
+    if(email != confirmEmail) {
+        res.render("signup", {signupmessage: '<h2 class="invalid"> Emails do not match! </h2>'});
+        return;
+    }
+        
+    if(password != confirmPassword) {
+        res.render("signup", {signupmessage: '<h2 class="invalid"> Passwords do not match! </h2>'});
+        return;
+    }
+
+    if(!password.match(passwordRegex)) {
+        res.render("signup", {signupmessage: '<h2 class="invalid"> Password does not fulfill requirements! </h2>'});
+        return;
+    }
+
+    if(req.body.signupButton == 1) {
         createAndSaveStudent(firstName, lastName, email, confirmEmail, password, confirmPassword, function (err, data) {
             if(err){
                 return(err);

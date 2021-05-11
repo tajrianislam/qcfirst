@@ -286,6 +286,11 @@ footer {
     padding-bottom: 40px;
 }
 
+.passwordReq {
+    font-size: 10px;
+    color: red;
+}
+
 .popupMessage {
     text-align: center;
     margin-bottom: 20px;
