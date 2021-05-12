@@ -323,8 +323,22 @@ footer {
 }
 
 .courseField select {
-    width: 165px;
+    width: 200px;
     height: 25px;
+}
+
+.rosterButton {
+    font-family: "Rosario", sans-serif;
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #c4c4c4;
+    color: red;
+}
+
+.rosterButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
 }
 
 /*Student Enroll */

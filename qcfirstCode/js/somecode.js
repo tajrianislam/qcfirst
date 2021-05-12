@@ -125,7 +125,7 @@ document.querySelector("#createCourseButton").addEventListener("click", (event) 
             event.preventDefault();
             invalidDiv.removeAttribute("hidden");
             invalidMessage.innerHTML = "Capacity cannot be empty!";
-      } else if(capacity < 0){
+      } else if(capacity < 1){
             event.preventDefault();
             invalidDiv.removeAttribute("hidden");
             invalidMessage.innerHTML = "Capacity cannot be negative!";

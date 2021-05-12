@@ -16,6 +16,7 @@ app.set('view engine', 'ejs')
 var fullName = "";
 var id = "";
 var courses = "";
+var rosterSelect = "";
 var studentLoggedIn = false;
 var instructorLoggedIn = false;
 
@@ -80,7 +81,7 @@ app.get('/instructorhome_successfulCreateCourse', (req, res) => {
 
 app.get('/instructorroster', (req, res) => {
     if(instructorLoggedIn){
-        res.render("instructorroster");
+        res.render("instructorroster", {courseRoster: rosterSelect});
     } else {
         res.redirect("/login");
     }
@@ -173,9 +174,11 @@ app.post('/login', function(req, res) {
                 fullName = firstName + " " + lastName;
                 
                 courses = "";
+                rosterSelect = "";
 
                 for(let x = 0; x < courseList.length; x++){
                     courses += `<tr><td>${courseList[x].courseNumberName}</td><td>${courseList[x].courseDaysTime}</td></tr>`
+                    rosterSelect += `<option value="${courseList[x].courseID}">${courseList[x].courseID}` + " : " + `${courseList[x].courseNumberName}</option>`
                 }
 
                 instructorLoggedIn = true;
@@ -265,8 +268,21 @@ app.post('/createClass', function(req, res) {
         }else if(data){
             let dayTimeString = days + " " + time;
             courses += `<tr><td>${numberName}</td><td>${dayTimeString}</td></tr>`
-            addCourseToInstructor(id, numberName, dayTimeString)
+            rosterSelect += `<option value="${data.courseID}">${data.courseID}` + " : " + `${numberName}</option>`
+            addCourseToInstructor(id, data.courseID, numberName, dayTimeString);
             res.redirect("/instructorhome_successfulCreateCourse");
         } 
     });
+});
+
+const findCourseInformation = require("./database.js").findCourseInformation;
+app.post('/showRoster', function(req, res) {
+
+    var courseID = req.body.rosterCourseLookup;
+
+    findCourseInformation(courseID, function(err, course) {
+        //console.log(course[0].courseDescription);
+        //Here parse information and re-render page with the course information
+    });
+
 });

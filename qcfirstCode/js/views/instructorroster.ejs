@@ -32,11 +32,13 @@
     <div id="page-container">
         <div id="content-wrap">
            
-            <form class="courseField">
-                <label for="course">Course :</label>
-                <select name = "course" id = "course">
+            <form method="post" action="/showRoster" class="courseField">
+                <label for="rosterCourseLookup">Course :</label>
+                <select name = "rosterCourseLookup" id = "rosterCourseLookup">
                     <option value = "" disabled selected hidden>Choose an option</option>
+                    <%- courseRoster%>
                 </select>
+                <button name = "" value = "1" class="rosterButton">Find Roster</button>
             </form>
 
             <h3 class = "tableName">Roster:</h3>
@@ -45,14 +47,6 @@
                 <tr>
                     <th scope = "col">Student Name</th>
                     <th scope = "col">Student Email</th>
-                </tr>
-                <tr>
-                    <td>Bob Ross</td>
-                    <td>bross@gmail.com</td>
-                </tr>
-                <tr>
-                    <td>Sandy Cleveland</td>
-                    <td>sandyc123@gmail.com</td>
                 </tr>
             </table>
         </div>

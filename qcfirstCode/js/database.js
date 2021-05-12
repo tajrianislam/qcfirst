@@ -19,7 +19,8 @@ const instructorSchema = new Schema ({
     lastName: {type: String, required: true},
     email: {type: mongoose.SchemaTypes.Email, required: true, unique: true},
     password: {type: String, required: true},
-    coursesTeaching: [{courseNumberName: {type: String},
+    coursesTeaching: [{courseID: {type: Number},
+                       courseNumberName: {type: String},
                        courseDaysTime: {type:String} 
                      }]
 });
@@ -76,6 +77,10 @@ exports.createAndSaveInstructor = createAndSaveInstructor;
 exports.findStudentLogin = findStudentLogin;
 exports.findInstructorLogin = findInstructorLogin;
 
+
+// Course Schema and Functions
+
+
 const courseSchema = new Schema ({
     courseID: {type: Number, required: true, unique: true},
     semester: {type: String, required: true},
@@ -86,7 +91,10 @@ const courseSchema = new Schema ({
     courseProfessor: {type: String, required: true},
     courseCapacity: {type: Number, required: true},
     courseDescription: {type: String, required: true},
-    studentsEnrolled: [String]
+    enrollmentDeadline: {type: Date, required: true},
+    studentsEnrolled: [{studentName: {type: String},
+                        studentEmail: {type: String} 
+                      }]
 });
 
 const Course = mongoose.model("Course", courseSchema);
@@ -94,8 +102,21 @@ const Course = mongoose.model("Course", courseSchema);
 const createAndSaveCourse = (sem, dept, numberName, days, time, professor, capacity, description, done) => {
 
     let randomValue = createRandomCourseID();
+    let deadline = new Date();
 
-    var course = new Course({courseID: randomValue, semester: sem, courseDept: dept, courseNumberName: numberName, courseDays: days, courseTime: time, courseProfessor: professor, courseCapacity: capacity, courseDescription: description});
+    if(sem == "Summer 2021"){
+        deadline = new Date(2021, 5, 20);
+    } else if(sem == "Fall 2021") {
+        deadline = new Date(2021, 7, 25);
+    } else if(sem == "Winter 2022") {
+        deadline = new Date(2021, 11, 27);
+    } else if(sem == "Spring 2022") {
+        deadline = new Date(2022, 0, 25);
+    } else if(sem == "Summer 2022") {
+        deadline = new Date(2022, 5, 20);
+    } 
+
+    var course = new Course({courseID: randomValue, semester: sem, courseDept: dept, courseNumberName: numberName, courseDays: days, courseTime: time, courseProfessor: professor, courseCapacity: capacity, courseDescription: description, enrollmentDeadline: deadline});
 
     course.save(function(err, data) {
         if (err) console.error(err);
@@ -118,13 +139,23 @@ const createRandomCourseID = () => {
     return randomValue;
 };
 
-const addCourseToInstructor = (instructorID, numberName, daysTime) => {
+const addCourseToInstructor = (instructorID, cID, numberName, daysTime) => {
     
-    Instructor.findByIdAndUpdate(instructorID, {$push: {"coursesTeaching": {courseNumberName: numberName, courseDaysTime: daysTime}}}, {safe: true, upsert: true, new : true}, (err, instructor) => {
+    Instructor.findByIdAndUpdate(instructorID, {$push: {"coursesTeaching": {courseID: cID, courseNumberName: numberName, courseDaysTime: daysTime}}}, {safe: true, upsert: true, new : true}, (err, instructor) => {
         if (err) return console.error(err);
+    });
+}
+
+const findCourseInformation = (cID, done) => {
+
+    Course.find({courseID: cID}, function(err, course) {
+        if (err) return console.error(err);
+
+        done(null, course);
     });
 }
 
 exports.CourseModel = Course;
 exports.createAndSaveCourse = createAndSaveCourse;
 exports.addCourseToInstructor = addCourseToInstructor;
+exports.findCourseInformation = findCourseInformation;
