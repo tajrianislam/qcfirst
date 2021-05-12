@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose');
 require('mongoose-type-email');
 
-mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, function(err) {
+mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, function(err) {
     if (err) throw err;
 });
 
@@ -19,6 +19,9 @@ const instructorSchema = new Schema ({
     lastName: {type: String, required: true},
     email: {type: mongoose.SchemaTypes.Email, required: true, unique: true},
     password: {type: String, required: true},
+    coursesTeaching: [{courseNumberName: {type: String},
+                       courseDaysTime: {type:String} 
+                     }]
 });
 
 const Student = mongoose.model("Student", studentSchema);
@@ -83,7 +86,7 @@ const courseSchema = new Schema ({
     courseProfessor: {type: String, required: true},
     courseCapacity: {type: Number, required: true},
     courseDescription: {type: String, required: true},
-    studentsEnrolled: {type: Array}
+    studentsEnrolled: [String]
 });
 
 const Course = mongoose.model("Course", courseSchema);
@@ -115,5 +118,13 @@ const createRandomCourseID = () => {
     return randomValue;
 };
 
+const addCourseToInstructor = (instructorID, numberName, daysTime) => {
+    
+    Instructor.findByIdAndUpdate(instructorID, {$push: {"coursesTeaching": {courseNumberName: numberName, courseDaysTime: daysTime}}}, {safe: true, upsert: true, new : true}, (err, instructor) => {
+        if (err) return console.error(err);
+    });
+}
+
 exports.CourseModel = Course;
 exports.createAndSaveCourse = createAndSaveCourse;
+exports.addCourseToInstructor = addCourseToInstructor;

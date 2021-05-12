@@ -15,6 +15,7 @@ app.set('view engine', 'ejs')
 
 var fullName = "";
 var id = "";
+var courses = "";
 var studentLoggedIn = false;
 var instructorLoggedIn = false;
 
@@ -63,7 +64,15 @@ app.get('/instructorcreate', (req, res) => {
 
 app.get('/instructorhome', (req, res) => {
     if(instructorLoggedIn){
-        res.render("instructorhome", {instructorName: fullName, instructorID: id});
+        res.render("instructorhome", {instructorName: fullName, instructorID: id, instructorCourses: courses, successMessage: ""});
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get('/instructorhome_successfulCreateCourse', (req, res) => {
+    if(instructorLoggedIn){
+        res.render("instructorhome", {instructorName: fullName, instructorID: id, instructorCourses: courses, successMessage: '<h2 class="successful">Success creating course! </h2>'});
     } else {
         res.redirect("/login");
     }
@@ -121,6 +130,7 @@ app.post('/login', function(req, res) {
     
     var firstName = "";
     var lastName = "";
+    var courseList = [];
 
     if(req.body.loginButton == 1){
         findStudentLogin(email, password, function(err, student) {
@@ -153,13 +163,21 @@ app.post('/login', function(req, res) {
                 res.render("index", {loginmessage: '<h2 class="invalid"> Invalid Login </h2>'});
             } else {
 
-                for (var i = 0; i < instructor.length; i++) {
+                for (let i = 0; i < instructor.length; i++) {
                     firstName = (instructor[i]['firstName']);
                     lastName = (instructor[i]['lastName']);
                     id = (instructor[i]['_id']);
+                    courseList = (instructor[i]['coursesTeaching']);
                 }
 
                 fullName = firstName + " " + lastName;
+                
+                courses = "";
+
+                for(let x = 0; x < courseList.length; x++){
+                    courses += `<tr><td>${courseList[x].courseNumberName}</td><td>${courseList[x].courseDaysTime}</td></tr>`
+                }
+
                 instructorLoggedIn = true;
                 studentLoggedIn = false;
 
@@ -230,6 +248,7 @@ app.post('/signup', function(req, res) {
 });
 
 const createAndSaveCourse = require("./database.js").createAndSaveCourse;
+const addCourseToInstructor = require("./database.js").addCourseToInstructor;
 app.post('/createClass', function(req, res) { 
     
     var semester = req.body.createCourseSemester;
@@ -244,7 +263,10 @@ app.post('/createClass', function(req, res) {
         if(err){
             return(err);
         }else if(data){
-            res.redirect("/instructorhome");
+            let dayTimeString = days + " " + time;
+            courses += `<tr><td>${numberName}</td><td>${dayTimeString}</td></tr>`
+            addCourseToInstructor(id, numberName, dayTimeString)
+            res.redirect("/instructorhome_successfulCreateCourse");
         } 
     });
 });

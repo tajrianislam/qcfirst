@@ -31,6 +31,10 @@
     <div id="page-container">
         <div id="content-wrap">
         
+            <div class="popupMessage">
+                <%- successMessage%>
+            </div>
+
             <div class="leftLabelsSpacing">
                 <p class="leftLabels">Instructor Name :</p>
                 <p class="leftValue"> <%- instructorName %> </p>   
@@ -44,23 +48,14 @@
             <h3 class="tableName">Classes Teaching:</h3>
       
             <table class="bigTable" id="instructorCourseTable">
-                <tbody><tr>
-                    <th scope="col">Course</th>
-                    <th scope="col">Days/Time</th>
-                </tr>
-                <tr>
-                    <td>CS 355</td>
-                    <td>M/W: 8:00-10:50PM</td>
-                </tr>
-                <tr>
-                    <td>CS 340</td>
-                    <td>T/TH: 1:40-3:10PM</td>
-                </tr>
-                <tr>
-                    <td>CS 370</td>
-                    <td>F: 6:30-9:15PM</td>
-                </tr>
-            </tbody></table>
+                <tbody>
+                    <tr>
+                        <th scope="col">Course</th>
+                        <th scope="col">Days/Time</th>
+                    </tr>
+                    <%- instructorCourses %>
+                </tbody>
+            </table>
         </div>
     
         <footer>
