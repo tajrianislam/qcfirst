@@ -12,6 +12,13 @@ const studentSchema = new Schema ({
     lastName: {type: String, required: true},
     email: {type: mongoose.SchemaTypes.Email, required: true, unique: true},
     password: {type: String, required: true},
+    coursesEnrolled: [{courseID: {type: Number},
+                       courseSemester: {type: String},
+                       courseNumberName: {type: String},
+                       courseDays: {type: String},
+                       courseTime: {type: String},
+                       courseProfessor: {type: String}
+                     }]
 });
 
 const instructorSchema = new Schema ({
@@ -20,8 +27,9 @@ const instructorSchema = new Schema ({
     email: {type: mongoose.SchemaTypes.Email, required: true, unique: true},
     password: {type: String, required: true},
     coursesTeaching: [{courseID: {type: Number},
+                       courseSemester: {type: String},
                        courseNumberName: {type: String},
-                       courseDaysTime: {type:String} 
+                       courseDaysTime: {type: String} 
                      }]
 });
 
@@ -69,6 +77,15 @@ const findInstructorLogin = (emailAddress, pass, done) => {
     });
 }
 
+const findStudentByID = (studentID, done) => {
+
+    Student.find({_id: studentID}, function(err, student) {
+        if (err) return console.error(err);
+
+        done(null, student);
+    });
+}
+
 
 exports.StudentModel = Student;
 exports.InstructorModel = Instructor;
@@ -76,6 +93,7 @@ exports.createAndSaveStudent = createAndSaveStudent;
 exports.createAndSaveInstructor = createAndSaveInstructor;
 exports.findStudentLogin = findStudentLogin;
 exports.findInstructorLogin = findInstructorLogin;
+exports.findStudentByID = findStudentByID;
 
 
 // Course Schema and Functions
@@ -139,9 +157,23 @@ const createRandomCourseID = () => {
     return randomValue;
 };
 
-const addCourseToInstructor = (instructorID, cID, numberName, daysTime) => {
+const addCourseToInstructor = (instructorID, cID, semester, numberName, daysTime) => {
     
-    Instructor.findByIdAndUpdate(instructorID, {$push: {"coursesTeaching": {courseID: cID, courseNumberName: numberName, courseDaysTime: daysTime}}}, {safe: true, upsert: true, new : true}, (err, instructor) => {
+    Instructor.findByIdAndUpdate(instructorID, {$push: {"coursesTeaching": {courseID: cID, courseSemester: semester, courseNumberName: numberName, courseDaysTime: daysTime}}}, {safe: true, upsert: true, new : true}, (err, instructor) => {
+        if (err) return console.error(err);
+    });
+}
+
+const addCourseToStudent = (studentID, cID, semester, numberName, days, time, professor) => {
+    
+    Student.findByIdAndUpdate(studentID, {$push: {"coursesEnrolled": {courseID: cID, courseSemester: semester, courseNumberName: numberName, courseDays: days, courseTime: time, courseProfessor: professor}}}, {safe: true, upsert: true, new : true}, (err, student) => {
+        if (err) return console.error(err);
+    });
+}
+
+const addStudentToCourse = (cID, name, email) => {
+    
+    Course.findOneAndUpdate({courseID: cID}, {$push: {"studentsEnrolled": {studentName: name, studentEmail: email}}}, {safe: true, upsert: true, new : true}, (err, student) => {
         if (err) return console.error(err);
     });
 }
@@ -155,7 +187,31 @@ const findCourseInformation = (cID, done) => {
     });
 }
 
+const findClassForEnrollWithID = (cID, done) => {
+
+    Course.find({courseID: cID}, function(err, course) {
+        if (err) return console.error(err);
+
+        done(null, course);
+    });
+}
+
+const findClassForEnrollWithSubjectAndNumber = (subject, cNumber, done) => {
+
+    Course.find({courseDept: subject, courseNumberName: cNumber}, function(err, course) {
+        if (err) return console.error(err);
+
+        done(null, course);
+    });
+}
+
+
+
 exports.CourseModel = Course;
 exports.createAndSaveCourse = createAndSaveCourse;
 exports.addCourseToInstructor = addCourseToInstructor;
+exports.addCourseToStudent = addCourseToStudent;
+exports.addStudentToCourse = addStudentToCourse;
 exports.findCourseInformation = findCourseInformation;
+exports.findClassForEnrollWithID = findClassForEnrollWithID;
+exports.findClassForEnrollWithSubjectAndNumber = findClassForEnrollWithSubjectAndNumber;

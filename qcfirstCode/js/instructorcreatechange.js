@@ -58,9 +58,9 @@ var ENGLcourses = ["110 : College Writing I",
 
 document.querySelector("#createCourseDepartment").addEventListener("change", function() {
       
-      console.log(document.querySelector("#createCourseDepartment").value);
       var dept = document.querySelector("#createCourseDepartment").value;
       var stringBuilder = "";
+      
       if(dept == "CSCI"){
             
             for(let x = 0; x < CSCIcourses.length; x++){

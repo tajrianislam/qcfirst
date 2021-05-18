@@ -285,6 +285,10 @@ footer {
     background-color: #c4c4c4;
 }
 
+.tableSpace {
+    margin-bottom: 20px;
+}
+
 .tableName {
     font-family: "Alice", serif;
     font-weight: bold;
@@ -358,10 +362,11 @@ footer {
 .leftHandSide-fields input {
     margin-left: 20em;
     height: 25px;
+    width: 193px;
 }
 .leftHandSide-fields select {
     margin-left: 20em;
-    width: 165px;
+    width: 200px;
     height: 25px;
 }
 

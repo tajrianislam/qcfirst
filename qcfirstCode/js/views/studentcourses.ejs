@@ -32,22 +32,11 @@
     <div id="page-container">
         <div id="content-wrap">
 
-            <table class = "bigTable" id="studentCourseTable">
-                <tr>
-                    <th scope = "col">Course ID</th>
-                    <th scope = "col">Course Name</th>
-                    <th scope = "col">Course Time</th>
-                    <th scope = "col">Professor</th>
-                    <th scope = "col">Select</th>
-                </tr>
-                <tr>
-                    <td>54231</td>
-                    <td>CS 355 : Internet and Web Technologies</td>
-                    <td>T 8:00 PM - 10:50 PM</td>
-                    <td>Mark Abramov</td>
-                    <td><button class = "addCourseButton">Add Course</button></td>
-                </tr>
-            </table>
+            <div class="popupMessage">
+                <%- coursemessage %>
+            </div>
+
+            <%- possiblecourses %>
 
         </div>
 

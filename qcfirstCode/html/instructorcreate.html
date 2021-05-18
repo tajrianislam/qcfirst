@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
     <link rel="stylesheet" media="screen and (min-width: 750px)" href="../css/desktopstyles.css">
     <link rel="stylesheet" media="screen and (max-width: 750px)" href="../css/mobilestyles.css">
-    <script src="../js/somecode.js" async></script>
+    <script src="../js/instructorcreatechange.js" async></script>
 
     <title>Instructor Create Course</title>
 </head>
@@ -40,7 +40,7 @@
             <form method="post" action="/createClass" class = "leftHandSideForCreate-fields">
                
                 <div class = "form">
-                    <label for="createCourseSemester">Semester:</label>
+                    <label for="createCourseSemester" class = "semesterCapacityCreate">Semester:</label>
                     <select name = "createCourseSemester" id = "createCourseSemester">
                         <option value = "" disabled selected hidden>Choose an option</option>
                         <option value = "Summer 2021">Summer 2021</option>
@@ -53,7 +53,7 @@
                
                 
                 <div class="form">
-                    <label for="createCourseDepartment">Department:</label>
+                    <label for="createCourseDepartment" class = "departmentCreate">Department:</label>
                     <select name = "createCourseDepartment" id = "createCourseDepartment">
                         <option value = "" disabled selected hidden>Choose an option</option>
                         <option value = "CSCI">CSCI</option>
@@ -64,14 +64,14 @@
               
                 
                 <div class="form">
-                    <label for="createCourseNumber">Course:</label>
+                    <label for="createCourseNumber" class = "courseInstructorCreate">Course:</label>
                     <select name = "createCourseNumber" id = "createCourseNumber">
                         <option value = "" disabled selected hidden>Choose a department</option>
                     </select>
                 </div>
 
                 <div class="form">
-                    <label for="createCourseDays">Class Day(s):</label>
+                    <label for="createCourseDays" class = "courseClassTimeCreate">Class Day(s):</label>
                     <select name = "createCourseDays" id = "createCourseDays">
                         <option value = "" disabled selected hidden>Choose an option</option>
                         <option value = "Monday">Monday</option>
@@ -87,14 +87,14 @@
                 </div>
                 
                 <div class="form">
-                    <label for="createCourseClassTime">Class Time:</label>
+                    <label for="createCourseClassTime" class = "courseClassTimeCreate">Class Time:</label>
                     <select name = "createCourseClassTime" id = "createCourseClassTime">
                         <option value = "" disabled selected hidden>Choose an option</option>
                         <option value = "7:45AM-9:00AM">7:45AM-9:00AM</option>
                         <option value = "8:00AM-9:15AM">8:00AM-9:15AM</option>
                         <option value = "8:00AM-10:50AM">8:00AM-10:50AM</option>
                         <option value = "8:30AM-9:45AM">8:30AM-9:45AM</option>
-                        <option value = "9:30AM-10:45AM">9:15AM-10:30AM</option>
+                        <option value = "9:15AM-10:30AM">9:15AM-10:30AM</option>
                         <option value = "10:00AM-12:50PM">10:00AM-12:50PM</option>
                         <option value = "10:45AM-12:00PM">10:45AM-12:00PM</option>
                         <option value = "12:15PM-1:30PM">12:15PM-1:30PM</option>
@@ -107,12 +107,12 @@
                 </div>
                 
                 <div class="form">
-                    <label for="createCourseCapacity">Capacity:</label>
+                    <label for="createCourseCapacity" class = "semesterCapacityCreate">Capacity:</label>
                     <input type="number" id="createCourseCapacity" name = "createCourseCapacity" min="1">
                 </div>
                
                 <div class="form">
-                    <label for="createCourseDescription">Description:</label>
+                    <label for="createCourseDescription" class = "descriptionCreate">Description:</label>
                     <textarea name="createCourseDescription" id="createCourseDescription" cols="50" rows="4"></textarea>
                 </div> 
 

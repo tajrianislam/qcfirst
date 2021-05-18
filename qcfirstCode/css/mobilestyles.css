@@ -318,6 +318,30 @@ footer {
     font-family: "Alice", serif;
 }
 
+@media only screen and (max-width: 420px) {
+    .invalid { 
+        display: inline-block;
+        text-align: center;
+        font-size: 15px;
+        font-weight: bold;
+        background-color: red;
+        padding: 12px;
+        margin-top: -35px;
+        font-family: "Alice", serif;
+    }
+    
+    .successful {
+        display: inline-block;
+        text-align: center;
+        font-size: 15px;
+        font-weight: bold;
+        background-color: green;
+        padding: 12px;
+        margin-top: -35px;
+        font-family: "Alice", serif;
+    }
+}
+
 /* Student Home, Instructor Home, Instructor Roster*/
 
 .leftLabels {
@@ -363,13 +387,17 @@ footer {
     background-color: #c4c4c4;
 }
 
-@media only screen and (max-width: 500px) {
+.tableSpace {
+    margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 540px) {
     #studentCourseTable * {
         height: 100px;
     }
 
     #studentCourseTable th {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     #studentCourseTable td {
@@ -387,6 +415,34 @@ footer {
     }
 
     #studentCourseTable td {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    #studentSchedule * {
+        height: 100px;
+    }
+
+    #studentSchedule th {
+        font-size: 16px;
+    }
+
+    #studentSchedule td {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    #studentSchedule * {
+        height: 100px;
+    }
+
+    #studentSchedule th {
+        font-size: 14px;
+    }
+
+    #studentSchedule td {
         font-size: 10px;
     }
 }

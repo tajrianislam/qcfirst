@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
     <link rel="stylesheet" media="screen and (min-width: 750px)" href="../css/desktopstyles.css">
     <link rel="stylesheet" media="screen and (max-width: 750px)" href="../css/mobilestyles.css">
+    <script src="../js/studentenrollchange.js" async></script>
     
     <title>Student Course Enrollment</title>
 </head>
@@ -21,14 +22,22 @@
             <li><a href = "/studenthome" class = "headerButton">Home</a></li>
             <li><a href = "/studentenroll" class = "headerButton">Enroll</a></li> 
             <li><a href = "https://www.qc.cuny.edu/pages/calendar.aspx" class = "headerButton" target = "_blank">Calendar</a></li> 
-            <li><a href = "/login" class = "headerButton">Logout</a></li>   
+            <li>
+                <form method="post" action="/logout">
+                    <button name="logoutButton" class="logoutButton">Logout</button>
+                </form>
+            </li>
         </ul>
     </header>
     
     <div id="page-container">
         <div id="content-wrap">
+
+            <div id="courseCreateInvalidMessage" class="popupMessage" hidden>
+                <h2 id="courseCreateMessage" class="invalid">  </h2>
+            </div>
             
-            <form class="leftHandSide-fields">
+            <form method="post" action="/findClass" class="leftHandSide-fields">
 
                 <div class="form">
                     <label for="classId" class = "classIdSubjectEnroll">Class ID : </label>
@@ -36,32 +45,40 @@
                 </div>
                
                 <div class="form">
-                    <label for="subj" class = "classIdSubjectEnroll">Subject :</label>
-                    <select name = "subjectEnroll" id="subj">
+                    <label for="subjectEnroll" class = "classIdSubjectEnroll">Subject :</label>
+                    <select name = "subjectEnroll" id="subjectEnroll">
                         <option value = "" disabled selected hidden>Choose an option</option>
+                        <option value = "CSCI">CSCI</option>
+                        <option value = "ENGL">ENGL</option>
+                        <option value = "MATH">MATH</option>
                     </select>
                 </div>
                 
                 <div class="form">
-                    <label for="cNumber" class = "courseNumberEnroll">Course Number :</label>
-                    <input type="text" id="cNumber" name = "cNumber" placeholder="Course Number">
+                    <label for="courseNumberEnroll" class = "courseNumberEnroll">Course Number :</label>
+                    <select name = "courseNumberEnroll" id="courseNumberEnroll">
+                        <option value = "" disabled selected hidden>Choose a subject</option>
+                    </select>
                 </div>      
                 
                 <div class= "form">
                     <label for="degReq" class = "degreeReqEnroll">Degree Requirements :</label>
                     <select name = "degreeRequirements" id = "degReq">
                         <option value = "" disabled selected hidden>Choose an option</option>
+                        <option value = "CSCI">CSCI</option>
+                        <option value = "ENGL">ENGL</option>
+                        <option value = "MATH">MATH</option>
                     </select>
                     
                     <div class = "centerButton">
-                        <button class="degreeButton">Go To Degree</button>
+                        <button class="degreeButton" id="degreeButton">Go To Degree</button>
                     </div>
                     
                 </div>
-            </form>
+                
+                <button id="findCourseButton" class="findCourseButton">Find Course</button>
             
-            <a href = "/studentcourses" class = "formButtonLink"><button class="findCourseButton">Find Course</button></a>
-            
+            </form>            
         </div>
 
         <footer>

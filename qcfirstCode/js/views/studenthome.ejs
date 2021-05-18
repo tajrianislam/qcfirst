@@ -30,6 +30,10 @@
     <div id="page-container">
         <div id="content-wrap">
             
+            <div class="popupMessage">
+                <%- courseAddingMessage %>
+            </div>
+
                 <div class="leftLabelsSpacing">
                     <p class="leftLabels">Full Name :</p>
                     <p class="leftValue"> <%- studentName%> </p>   
@@ -46,10 +50,15 @@
             <table class="bigTable" id="studentSchedule">
                 <tbody>
                     <tr>
-                        <th scope="col">Course</th>
+                        <th scope="col">Course Id</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Course Name</th>
                         <th scope="col">Days/Time</th>
                         <th scope="col">Professor</th>
-                    </tr>          
+                    </tr>
+                
+                    <%- studentenrolledcourses %>
+                
                 </tbody>
             </table>
 
