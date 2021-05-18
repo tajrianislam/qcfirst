@@ -30,13 +30,17 @@
     <div id="page-container">
         <div id="content-wrap">
 
-            <form method="post" action="/showRoster" class="courseField">
-                <label for="rosterCourseLookup">Course :</label>
-                <select name = "rosterCourseLookup" id = "rosterCourseLookup">
-                    <option value = "" disabled selected hidden>Choose an option</option>
-                </select>
-                <button name = "" value = "1" class="rosterButton">Find Roster</button>
-            </form>
+            <div>
+                <form method="post" action="/showdatabase">
+                    <ul class="studentEditClassList centerButton">
+                        <li><button name = "adminButton" value = "1" class="adminButton">Student Database</button></li>
+                        <li><button name = "adminButton" value = "2" class="adminButton">Instructor Database</button></li>
+                        <li><button name = "adminButton" value = "3" class="adminButton">Course Database</button></li>
+                    </ul> 
+                </form>
+            </div>
+
+            <%- adminTableInfo %>
 
         </div>
 

@@ -129,7 +129,7 @@ footer {
     bottom: 0;
 }
 
-/* Styling for Signup and Login Pages */
+/* Styling for Signup and Login Pages and Invalid/Success Messages */
 
 .formHeader {
     text-align: center;
@@ -344,6 +344,36 @@ footer {
     background-color: rgba(196, 196, 196, 60%);
     cursor: pointer;
 }
+
+.rosterButton {
+    font-family: "Rosario", sans-serif;
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #c4c4c4;
+    color: red;
+}
+
+.rosterButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+.adminButton {
+    font-family: "Rosario", sans-serif;
+    width: 230px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #c4c4c4;
+    color: red;
+    margin-bottom: 20px;
+}
+
+.adminButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
 
 /*Student Enroll */
 

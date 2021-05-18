@@ -101,6 +101,24 @@ const findStudentByID = (studentID, done) => {
     });
 }
 
+const findAllInstructors = (done) => {
+    
+    Instructor.find({}, function(err, instructors) {
+        if (err) return console.error(err);
+
+        done(null, instructors);
+    });
+}
+
+const findAllStudents = (done) => {
+    
+    Student.find({}, function(err, students) {
+        if (err) return console.error(err);
+
+        done(null, students);
+    });
+}
+
 exports.StudentModel = Student;
 exports.InstructorModel = Instructor;
 exports.createAndSaveStudent = createAndSaveStudent;
@@ -109,6 +127,8 @@ exports.findStudentLogin = findStudentLogin;
 exports.findInstructorLogin = findInstructorLogin;
 exports.findAdminLogin = findAdminLogin;
 exports.findStudentByID = findStudentByID;
+exports.findAllInstructors = findAllInstructors;
+exports.findAllStudents = findAllStudents;
 
 
 // Course Schema and Functions
@@ -226,7 +246,7 @@ const findAllCourses = (done) => {
         if (err) return console.error(err);
 
         done(null, courses);
-    })
+    });
 }
 
 const deleteCourseFromInstructor = (instructorID, cID, done) => {

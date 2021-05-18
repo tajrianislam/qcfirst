@@ -447,6 +447,34 @@ footer {
     }
 }
 
+@media only screen and (max-width: 540px) {
+    #adminTable * {
+        height: 100px;
+    }
+
+    #adminTable th {
+        font-size: 16px;
+    }
+
+    #adminTable td {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    #adminTable * {
+        height: 100px;
+    }
+
+    #adminTable th {
+        font-size: 14px;
+    }
+
+    #adminTable td {
+        font-size: 10px;
+    }
+}
+
 .tableName {
     font-family: "Alice", serif;
     font-weight: bold;
@@ -502,6 +530,25 @@ footer {
     background-color: rgba(196, 196, 196, 60%);
     cursor: pointer;
 }
+
+.adminButton {
+    display: inline-block;
+    text-align: center;
+    font-family: "Rosario", sans-serif;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    background-color: #c4c4c4;
+    color: red;
+    margin-top: 10px;
+}
+
+.adminButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
+
 
 /*Student Enroll */
 

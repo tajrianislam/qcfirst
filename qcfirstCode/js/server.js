@@ -29,6 +29,8 @@ var coursesForDelete = "";
 var studentClassesEnroll = "";
 var studentClassesEnrolledIn = "";
 
+// Admin Variables
+var adminTable = "";
 
 app.get('/', (req, res) => {
     res.render('index', {loginmessage: ''});
@@ -156,7 +158,8 @@ app.get('/studenthome_successfulAdd', (req, res) => {
 
 app.get('/adminhome', (req, res) => {
     if(adminLoggedIn){
-        res.render("adminhome");
+        adminTable = "";
+        res.render("adminhome", {adminTableInfo: ""});
     } else {
         res.redirect("/login");
     }
@@ -639,4 +642,89 @@ app.post('/addClass', function(req, res) {
             }
         });
     });
+});
+
+const findAllStudents = require('./database.js').findAllStudents;
+const findAllInstructors = require('./database.js').findAllInstructors;
+app.post('/showdatabase', function(req, res) {
+
+    if(req.body.adminButton == 1) {
+
+        adminTable = "";
+
+        adminTable +=  
+        `<table class = "bigTable" id="adminTable">
+        <tr>
+            <th scope = "col">Student ID</th>
+            <th scope = "col">Student Name</th>
+            <th scope = "col">Courses Enrolled</th>
+        </tr>`
+
+        findAllStudents(function(err, students) {
+            for(let student of students){
+                adminTable += `<tr><td>${student._id}</td><td>${student.firstName} ${student.lastName}</td><td>`
+                for(let course of student.coursesEnrolled){
+                    adminTable += course.courseID + " ";
+                }
+                adminTable += `</td></tr>`
+            }
+
+            res.render('adminhome', {adminTableInfo: adminTable});
+        })
+        
+    } else if (req.body.adminButton == 2) {
+        
+        adminTable = "";
+
+        adminTable +=  
+        `<table class = "bigTable" id="adminTable">
+        <tr>
+            <th scope = "col">Instructor ID</th>
+            <th scope = "col">Instructor Name</th>
+            <th scope = "col">Courses Teaching</th>
+        </tr>`
+
+        findAllInstructors(function(err, instructors) {
+            for(let instructor of instructors){
+                adminTable += `<tr><td>${instructor._id}</td><td>${instructor.firstName} ${instructor.lastName}</td><td>`
+                for(let course of instructor.coursesTeaching){
+                    adminTable += course.courseID + " ";
+                }
+                adminTable += `</td></tr>`
+            }
+
+            res.render('adminhome', {adminTableInfo: adminTable});
+        })
+
+    } else if (req.body.adminButton == 3) {
+        
+        adminTable = "";
+
+        findAllCourses(function(err, courses) {
+            
+            
+            for(let course of courses){
+                
+                adminTable += `<table class = "bigTable tableSpace" id="adminTable">
+        <tr>
+            <th scope = "col">Course ID</th>
+            <th scope = "col">Semester</th>
+            <th scope = "col">Course Name</th>
+            <th scope = "col">Days/Time</th>
+            <th scope = "col">Professor</th>
+        </tr>`
+                
+                adminTable += `<tr><td>${course.courseID}</td><td>${course.semester}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td><td>${course.courseProfessor}</td>
+                <tr>
+                <th scope = "col" colspan="5">Students Enrolled</th>
+                </tr><tr><td colspan="5">`
+                for(let student of course.studentsEnrolled){
+                    adminTable += student.studentName + " ";
+                }
+                adminTable += `</td></tr>`
+            }
+
+            res.render('adminhome', {adminTableInfo: adminTable});
+        })
+    }
 });
