@@ -7,21 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Rosario&display=swap" rel="stylesheet">
     <link rel="stylesheet" media="screen and (min-width: 750px)" href="../css/desktopstyles.css">
     <link rel="stylesheet" media="screen and (max-width: 750px)" href="../css/mobilestyles.css">
-
-    <title>Instructor Course Rosters</title>
+    
+    <title>Admin Home Page</title>
 </head>
 
 <body>
     
     <header>
-        <h1><a href ="/instructorhome">QC First</a></h1>
+        <h1><a href ="/studenthome">QC First</a></h1>
         <img class="libPic"  src="../img/qc3.jpeg" alt="Rosenthal">
         <hr>
         <ul class = "headerList">
-            <li><a href = "/instructorhome" class = "headerButton">Home</a></li>
-            <li><a href = "/instructorcreate" class = "headerButton">Create</a></li> 
-            <li><a href = "/instructorroster" class = "headerButton">Roster</a></li>
-            <li><a href = "/instructordelete" class = "headerButton">Delete</a></li>
+            <li><a href = "/studenthome" class = "headerButton">Home</a></li>
             <li>
                 <form method="post" action="/logout">
                     <button name="logoutButton" class="logoutButton">Logout</button>
@@ -32,27 +29,15 @@
     
     <div id="page-container">
         <div id="content-wrap">
-           
+
             <form method="post" action="/showRoster" class="courseField">
                 <label for="rosterCourseLookup">Course :</label>
                 <select name = "rosterCourseLookup" id = "rosterCourseLookup">
                     <option value = "" disabled selected hidden>Choose an option</option>
-                    <%- possibleCourseRoster%>
                 </select>
                 <button name = "" value = "1" class="rosterButton">Find Roster</button>
             </form>
 
-            <h3 class = "tableName">Roster:</h3>
-            
-            <table class = "bigTable" id="instructorRosterTable">
-                <tr>
-                    <th scope = "col">Student Name</th>
-                    <th scope = "col">Student Email</th>
-                </tr>
-                
-                <%- roster %>
-
-            </table>
         </div>
 
         <footer>
@@ -64,6 +49,6 @@
             </ul> 
         </footer>
 
-    </div> 
+    </div>        
 </body>
 </html>

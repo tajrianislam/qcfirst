@@ -33,8 +33,14 @@ const instructorSchema = new Schema ({
                      }]
 });
 
+const adminSchema = new Schema ({
+    email: {type: mongoose.SchemaTypes.Email, required: true, unique: true},
+    password: {type: String, required: true},
+});
+
 const Student = mongoose.model("Student", studentSchema);
 const Instructor = mongoose.model("Instructor", instructorSchema);
+const Admin = mongoose.model("Admin", adminSchema);
 
 const createAndSaveStudent = (fName, lName, emailAddress, pass, done) => {
 
@@ -77,6 +83,15 @@ const findInstructorLogin = (emailAddress, pass, done) => {
     });
 }
 
+const findAdminLogin = (emailAddress, pass, done) => {
+    
+    Admin.find({email: emailAddress, password: pass}, function(err, admin) {
+        if (err) return console.error(err);
+
+        done(null, admin);
+    });
+}
+
 const findStudentByID = (studentID, done) => {
 
     Student.find({_id: studentID}, function(err, student) {
@@ -86,13 +101,13 @@ const findStudentByID = (studentID, done) => {
     });
 }
 
-
 exports.StudentModel = Student;
 exports.InstructorModel = Instructor;
 exports.createAndSaveStudent = createAndSaveStudent;
 exports.createAndSaveInstructor = createAndSaveInstructor;
 exports.findStudentLogin = findStudentLogin;
 exports.findInstructorLogin = findInstructorLogin;
+exports.findAdminLogin = findAdminLogin;
 exports.findStudentByID = findStudentByID;
 
 
@@ -205,7 +220,50 @@ const findClassForEnrollWithSubjectAndNumber = (subject, cNumber, done) => {
     });
 }
 
+const findAllCourses = (done) => {
+    
+    Course.find({}, function(err, courses) {
+        if (err) return console.error(err);
 
+        done(null, courses);
+    })
+}
+
+const deleteCourseFromInstructor = (instructorID, cID, done) => {
+
+    Instructor.findByIdAndUpdate({_id: instructorID}, {$pull: {"coursesTeaching": {courseID: cID}}}, {safe: true, upsert: true, new : true}, (err, data) => {
+        if (err) return console.error(err);
+    });
+
+    findCourseInformation(cID, function(err, course) {
+        
+        let studentsEnrolled = course[0].studentsEnrolled.length;
+
+        if(studentsEnrolled > 0) deleteCourseFromStudent(cID);
+    });
+    
+    deleteCourseFromDatabase(cID);
+
+    Instructor.findById(instructorID, function(err, instructor) {
+        if (err) return console.error(err);
+
+        done(null, instructor);
+    });
+}
+
+const deleteCourseFromDatabase = (cID) => {
+    
+    Course.deleteOne({courseID: cID}, (err, data) => {
+        if (err) return console.error(err);
+    });
+}
+
+const deleteCourseFromStudent = (cID) => {
+
+    Student.updateMany({"coursesEnrolled.courseID": cID}, {$pull: {"coursesEnrolled": {courseID: cID}}}, {safe: true, upsert: true, new : true, mutli: true}, (err, data) => {
+        if (err) return console.error(err);
+    });
+}
 
 exports.CourseModel = Course;
 exports.createAndSaveCourse = createAndSaveCourse;
@@ -215,3 +273,5 @@ exports.addStudentToCourse = addStudentToCourse;
 exports.findCourseInformation = findCourseInformation;
 exports.findClassForEnrollWithID = findClassForEnrollWithID;
 exports.findClassForEnrollWithSubjectAndNumber = findClassForEnrollWithSubjectAndNumber;
+exports.findAllCourses = findAllCourses;
+exports.deleteCourseFromInstructor = deleteCourseFromInstructor;

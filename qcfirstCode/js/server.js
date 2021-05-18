@@ -17,11 +17,13 @@ var fullName = "";
 var id = "";
 var studentLoggedIn = false;
 var instructorLoggedIn = false;
+var adminLoggedIn = false;
 
 // Instructor Variables
 var coursesTeaching = "";
 var selectRosterInstructor = "";
 var rosterOfCourse = "";
+var coursesForDelete = "";
 
 // Student Variables
 var studentClassesEnroll = "";
@@ -35,8 +37,10 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
     if(studentLoggedIn) {
         res.redirect('/studenthome')
-    } else if (instructorLoggedIn) {
+    } else if(instructorLoggedIn) {
         res.redirect('/instructorhome')
+    } else if(adminLoggedIn){
+        res.redirect('/adminhome')
     } else {
          res.render('index', {loginmessage: ''});
     }
@@ -86,9 +90,25 @@ app.get('/instructorhome_successfulCreateCourse', (req, res) => {
     }
 });
 
+app.get('/instructorhome_successfulDelete', (req, res) => {
+    if(instructorLoggedIn){
+        res.render("instructorhome", {instructorName: fullName, instructorID: id, instructorCourses: coursesTeaching, successMessage: '<h2 class="successful">Success deleting course! </h2>'});
+    } else {
+        res.redirect("/login");
+    }
+});
+
 app.get('/instructorroster', (req, res) => {
     if(instructorLoggedIn){
         res.render("instructorroster", {possibleCourseRoster: selectRosterInstructor, roster: ""});
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get('/instructordelete', (req, res) => {
+    if(instructorLoggedIn){
+        res.render("instructordelete", {coursesToDelete: coursesForDelete});
     } else {
         res.redirect("/login");
     }
@@ -128,7 +148,15 @@ app.get('/studenthome', (req, res) => {
 
 app.get('/studenthome_successfulAdd', (req, res) => {
     if(studentLoggedIn){
-    res.render("studenthome", {studentName: fullName, studentID: id, courseAddingMessage: '<h2 class="successful"> Course Added Successfully </h2>', studentenrolledcourses: studentClassesEnrolledIn});
+        res.render("studenthome", {studentName: fullName, studentID: id, courseAddingMessage: '<h2 class="successful"> Course Added Successfully </h2>', studentenrolledcourses: studentClassesEnrolledIn});
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get('/adminhome', (req, res) => {
+    if(adminLoggedIn){
+        res.render("adminhome");
     } else {
         res.redirect("/login");
     }
@@ -141,12 +169,14 @@ app.listen(port, () => {
 app.post('/logout', function(req, res) {
     instructorLoggedIn = false;
     studentLoggedIn = false;
+    adminLoggedIn = false;
     
     res.redirect('/login');
 })
 
 const findStudentLogin = require("./database.js").findStudentLogin;
 const findInstructorLogin = require("./database.js").findInstructorLogin;
+const findAdminLogin = require("./database.js").findAdminLogin;
 app.post('/login', function(req, res) {
     
     var email = req.body.emailLogin;
@@ -154,7 +184,6 @@ app.post('/login', function(req, res) {
     
     var firstName = "";
     var lastName = "";
-    var courseList = [];
 
     if(req.body.loginButton == 1){
         findStudentLogin(email, password, function(err, student) {
@@ -178,7 +207,6 @@ app.post('/login', function(req, res) {
                     studentClassesEnrolledIn += `<tr><td>${course.courseID}</td><td>${course.courseSemester}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td><td>${course.courseProfessor}</td></tr>`;
                 }
 
-                instructorLoggedIn = false;
                 studentLoggedIn = true;
 
                 res.redirect("studenthome");
@@ -196,25 +224,39 @@ app.post('/login', function(req, res) {
                 firstName = instructor[0].firstName;
                 lastName = instructor[0].lastName;
                 id = instructor[0]._id;
-                courseList = instructor[0].coursesTeaching;
+                let courseList = instructor[0].coursesTeaching;
 
                 fullName = firstName + " " + lastName;
                 
                 coursesTeaching = "";
                 selectRosterInstructor = "";
+                coursesForDelete = ""
 
                 for(let course of courseList){
                     coursesTeaching += `<tr><td>${course.courseID}</td><td>${course.courseSemester}</td><td>${course.courseNumberName}</td><td>${course.courseDaysTime}</td></tr>`;
                     selectRosterInstructor += `<option value="${course.courseID}">${course.courseID}` + " : " + `${course.courseNumberName}</option>`;
+                    coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${course.courseID}">${course.courseID}</td><td>${course.courseNumberName}</td><td>${course.courseDaysTime}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
                 }
 
                 instructorLoggedIn = true;
-                studentLoggedIn = false;
 
                 res.redirect("instructorhome");
             }
         });
-    } else if (req.body.loginButton == 3){
+    } else if(req.body.loginButton == 3){
+        findAdminLogin(email, password, function(err, admin) {
+            
+            if (err) return console.error(err);
+
+            if(admin == ""){
+                res.render("index", {loginmessage: '<h2 class="invalid"> Invalid Login </h2>'});
+            } else {
+                adminLoggedIn = true;
+                res.redirect("/adminhome");
+            }
+        });
+
+    } else if(req.body.loginButton == 4){
             res.redirect("/signup");
     }
 });
@@ -274,7 +316,7 @@ app.post('/signup', function(req, res) {
                 res.redirect("/login_successfulSignup");
             }
         });
-    }
+    } 
 });
 
 const createAndSaveCourse = require("./database.js").createAndSaveCourse;
@@ -296,6 +338,7 @@ app.post('/createClass', function(req, res) {
             let dayTimeString = days + " " + time;
             coursesTeaching += `<tr><td>${data.courseID}</td><td>${semester}</td><td>${numberName}</td><td>${dayTimeString}</td></tr>`
             selectRosterInstructor += `<option value="${data.courseID}">${data.courseID}` + " : " + `${numberName}</option>`
+            coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${data.courseID}">${data.courseID}</td><td>${numberName}</td><td>${dayTimeString}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
             addCourseToInstructor(id, data.courseID, data.semester, numberName, dayTimeString);
             res.redirect("/instructorhome_successfulCreateCourse");
         } 
@@ -307,22 +350,52 @@ app.post('/showRoster', function(req, res) {
 
     var courseID = req.body.rosterCourseLookup;
 
-    console.log(courseID);
+    if(courseID == null) {
+        res.redirect('/instructorroster');
+    } else { 
 
-    findCourseInformation(courseID, function(err, course) {
+        findCourseInformation(courseID, function(err, course) {
 
-        rosterOfCourse = "";
+            rosterOfCourse = "";
+            
+            for(let studentInfo of course[0].studentsEnrolled){
+                rosterOfCourse += `<tr><td>${studentInfo.studentName}</td><td>${studentInfo.studentEmail}</td></tr>`
+            }
+
+            res.render('instructorroster', {possibleCourseRoster: selectRosterInstructor, roster: rosterOfCourse});
+        });
+    }
+});
+
+const deleteCourseFromInstructor = require("./database.js").deleteCourseFromInstructor;
+app.post('/deletecourse', function(req,res) {
+
+    var courseID = req.body.classID;
+
+    deleteCourseFromInstructor(id, courseID, (err, instructor) => {
         
-        for(let studentInfo of course[0].studentsEnrolled){
-            rosterOfCourse += `<tr><td>${studentInfo.studentName}</td><td>${studentInfo.studentEmail}</td></tr>`
+        coursesTeaching = "";
+        selectRosterInstructor = "";
+        rosterOfCourse = "";
+        coursesForDelete = "";
+
+        let courseList = instructor.coursesTeaching;
+    
+        for(let course of courseList){
+            if(course.courseID != courseID){
+                coursesTeaching += `<tr><td>${course.courseID}</td><td>${course.courseSemester}</td><td>${course.courseNumberName}</td><td>${course.courseDaysTime}</td></tr>`;
+                selectRosterInstructor += `<option value="${course.courseID}">${course.courseID}` + " : " + `${course.courseNumberName}</option>`;
+                coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${course.courseID}">${course.courseID}</td><td>${course.courseNumberName}</td><td>${course.courseDaysTime}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
+            }
         }
 
-        res.render('instructorroster', {possibleCourseRoster: selectRosterInstructor, roster: rosterOfCourse});
+        res.redirect('/instructorhome_successfulDelete');
     });
-});
+});    
 
 const findClassForEnrollWithID = require("./database.js").findClassForEnrollWithID;
 const findClassForEnrollWithSubjectAndNumber = require("./database.js").findClassForEnrollWithSubjectAndNumber;
+const findAllCourses = require("./database.js").findAllCourses;
 app.post('/findClass', function(req, res) {
 
     var classID = req.body.classId;
@@ -336,27 +409,62 @@ app.post('/findClass', function(req, res) {
             if(course == ""){
                 res.redirect('/studentcourses_dne');
             } else {
+                
                 studentClassesEnroll = "";
-                studentClassesEnroll += `<form method="post" action="/addClass"><tr><td><input type="hidden" name="classID" value="${course[0].courseID}">${course[0].courseID}</td><td>${course[0].courseNumberName}</td><td>${course[0].courseDays} ${course[0].courseTime}</td><td>${course[0].courseProfessor}</td><td><button class = "addCourseButton">Add Course</button></td></tr></form>`
+                
+                let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                let deadline = month[(course[0].enrollmentDeadline.getMonth())] + " " + course[0].enrollmentDeadline.getDate() + " " + course[0].enrollmentDeadline.getFullYear();
+                
+                studentClassesEnroll +=
+                `<form method="post" action="/addClass">
+                <table class = "bigTable tableSpace" id="studentCourseTable">
+                    <tr>
+                        <th scope = "col">Course ID</th>
+                        <th scope = "col">Course Name</th>
+                        <th scope = "col">Course Time</th>
+                        <th scope = "col">Professor</th>
+                        <th scope = "col">Select</th>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" name="classID" value="${course[0].courseID}">${course[0].courseID}</td>
+                        <td>${course[0].courseNumberName}</td>
+                        <td>${course[0].courseDays} ${course[0].courseTime}</td>
+                        <td>${course[0].courseProfessor}</td>
+                        <td rowspan="3"><button class = "addCourseButton">Add Course</button></td>
+                    </tr>
+                    <tr>
+                        <th scope = "col">Semester</th>
+                        <th scope = "col">Description</th>
+                        <th scope = "col">Deadline</th>
+                        <th scope = "col">Capacity</th>
+                    </tr>
+                    <tr>
+                        <td>${course[0].semester}</td>
+                        <td>${course[0].courseDescription}</td>
+                        <td>${deadline}</td>
+                        <td>${course[0].studentsEnrolled.length}/${course[0].courseCapacity}</td>
+                    </tr>
+                </table>
+            </form>`
                 res.redirect('/studentcourses');
             }
         });
 
-    } else if(subject != "" && courseNumber != "") {
+    } else if(subject != null && courseNumber != null) {
 
         findClassForEnrollWithSubjectAndNumber(subject, courseNumber, function(err, course) {
 
             if(course == ""){
                 res.redirect('/studentcourses_dne');
             } else {
-
+                
                 studentClassesEnroll = "";
                 
                 for(let courseInfo of course){
                     
                     let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
                     let deadline = month[(courseInfo.enrollmentDeadline.getMonth())] + " " + courseInfo.enrollmentDeadline.getDate() + " " + courseInfo.enrollmentDeadline.getFullYear();
+                    
                     studentClassesEnroll += 
                     `<form method="post" action="/addClass">
                         <table class = "bigTable tableSpace" id="studentCourseTable">
@@ -393,6 +501,52 @@ app.post('/findClass', function(req, res) {
                 res.redirect('/studentcourses');
             }
         });
+    } else if(subject == null && courseNumber == null){
+        
+        findAllCourses(function(err, course) {
+
+            studentClassesEnroll = "";
+            
+            for(let courseInfo of course){
+
+                let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+                let deadline = month[(courseInfo.enrollmentDeadline.getMonth())] + " " + courseInfo.enrollmentDeadline.getDate() + " " + courseInfo.enrollmentDeadline.getFullYear();
+                
+                studentClassesEnroll += 
+                    `<form method="post" action="/addClass">
+                        <table class = "bigTable tableSpace" id="studentCourseTable">
+                            <tr>
+                                <th scope = "col">Course ID</th>
+                                <th scope = "col">Course Name</th>
+                                <th scope = "col">Course Time</th>
+                                <th scope = "col">Professor</th>
+                                <th scope = "col">Select</th>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" name="classID" value="${courseInfo.courseID}">${courseInfo.courseID}</td>
+                                <td>${courseInfo.courseNumberName}</td>
+                                <td>${courseInfo.courseDays} ${courseInfo.courseTime}</td>
+                                <td>${courseInfo.courseProfessor}</td>
+                                <td rowspan="3"><button class = "addCourseButton">Add Course</button></td>
+                            </tr>
+                            <tr>
+                                <th scope = "col">Semester</th>
+                                <th scope = "col">Description</th>
+                                <th scope = "col">Deadline</th>
+                                <th scope = "col">Capacity</th>
+                            </tr>
+                            <tr>
+                                <td>${courseInfo.semester}</td>
+                                <td>${courseInfo.courseDescription}</td>
+                                <td>${deadline}</td>
+                                <td>${courseInfo.studentsEnrolled.length}/${courseInfo.courseCapacity}</td>
+                            </tr>
+                        </table>
+                    </form>`
+            }
+            res.redirect('/studentcourses');
+        });
     }
 });
 
@@ -400,7 +554,6 @@ const findStudentByID = require("./database.js").findStudentByID;
 const addCourseToStudent = require("./database.js").addCourseToStudent;
 const addStudentToCourse = require("./database.js").addStudentToCourse;
 const checkForClassTimeConflicts = require("./helperfunctions").checkForClassTimeConflicts;
-const checkForTimeConflict = require("./helperfunctions").checkForTimeConflict;
 app.post('/addClass', function(req, res) {
 
     var classToAddID = req.body.classID;
@@ -428,6 +581,16 @@ app.post('/addClass', function(req, res) {
 
             if(studentCourses.length == 0) {
                 
+                if(courseToAddInfo.studentsEnrolled.length >= courseToAddInfo.courseCapacity){
+                    res.render("studentcourses", {coursemessage: '<h2 class="invalid"> Course is full! </h2>', possiblecourses: studentClassesEnroll});
+                    return;
+                }
+
+                if(currentDate > courseToAddInfo.enrollmentDeadline){
+                    res.render("studentcourses", {coursemessage: '<h2 class="invalid"> Course is pass deadline! </h2>', possiblecourses: studentClassesEnroll});
+                    return;
+                }
+                
                 addCourseToStudent(id, classToAddID, classToAddSemester, classToAddNameAndNumber, classToAddDays, classToAddTime, classToAddProfessor);
                 addStudentToCourse(classToAddID, fullName, studentEmail);
                 studentClassesEnrolledIn += `<tr><td>${classToAddID}</td><td>${classToAddSemester}</td><td>${classToAddNameAndNumber}</td><td>${classToAddDays} ${classToAddTime}</td><td>${classToAddProfessor}`
@@ -449,7 +612,6 @@ app.post('/addClass', function(req, res) {
                         res.render("studentcourses", {coursemessage: '<h2 class="invalid"> You cannot add the same course twice! </h2>', possiblecourses: studentClassesEnroll});
                         return;
                     }
-
                     
                     if(courseToAddInfo.studentsEnrolled.length >= courseToAddInfo.courseCapacity){
                         res.render("studentcourses", {coursemessage: '<h2 class="invalid"> Course is full! </h2>', possiblecourses: studentClassesEnroll});

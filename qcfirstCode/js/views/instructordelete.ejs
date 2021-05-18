@@ -33,26 +33,18 @@
     <div id="page-container">
         <div id="content-wrap">
            
-            <form method="post" action="/showRoster" class="courseField">
-                <label for="rosterCourseLookup">Course :</label>
-                <select name = "rosterCourseLookup" id = "rosterCourseLookup">
-                    <option value = "" disabled selected hidden>Choose an option</option>
-                    <%- possibleCourseRoster%>
-                </select>
-                <button name = "" value = "1" class="rosterButton">Find Roster</button>
-            </form>
-
-            <h3 class = "tableName">Roster:</h3>
-            
-            <table class = "bigTable" id="instructorRosterTable">
+            <table class = "bigTable">
                 <tr>
-                    <th scope = "col">Student Name</th>
-                    <th scope = "col">Student Email</th>
+                    <th scope = "col">Course ID</th>
+                    <th scope = "col">Course Name</th>
+                    <th scope = "col">Course Time</th>
+                    <th scope = "col">Delete</th>
                 </tr>
-                
-                <%- roster %>
+
+                <%- coursesToDelete %>
 
             </table>
+            
         </div>
 
         <footer>
