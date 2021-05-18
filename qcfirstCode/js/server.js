@@ -21,6 +21,7 @@ var instructorLoggedIn = false;
 // Instructor Variables
 var coursesTeaching = "";
 var selectRosterInstructor = "";
+var rosterOfCourse = "";
 
 // Student Variables
 var studentClassesEnroll = "";
@@ -87,7 +88,7 @@ app.get('/instructorhome_successfulCreateCourse', (req, res) => {
 
 app.get('/instructorroster', (req, res) => {
     if(instructorLoggedIn){
-        res.render("instructorroster", {courseRoster: selectRosterInstructor});
+        res.render("instructorroster", {possibleCourseRoster: selectRosterInstructor, roster: ""});
     } else {
         res.redirect("/login");
     }
@@ -306,9 +307,17 @@ app.post('/showRoster', function(req, res) {
 
     var courseID = req.body.rosterCourseLookup;
 
+    console.log(courseID);
+
     findCourseInformation(courseID, function(err, course) {
-        //console.log(course[0].courseDescription);
-        //Here parse information and re-render page with the course information
+
+        rosterOfCourse = "";
+        
+        for(let studentInfo of course[0].studentsEnrolled){
+            rosterOfCourse += `<tr><td>${studentInfo.studentName}</td><td>${studentInfo.studentEmail}</td></tr>`
+        }
+
+        res.render('instructorroster', {possibleCourseRoster: selectRosterInstructor, roster: rosterOfCourse});
     });
 });
 

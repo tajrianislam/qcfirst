@@ -36,7 +36,7 @@
                 <label for="rosterCourseLookup">Course :</label>
                 <select name = "rosterCourseLookup" id = "rosterCourseLookup">
                     <option value = "" disabled selected hidden>Choose an option</option>
-                    <%- courseRoster%>
+                    <%- possibleCourseRoster%>
                 </select>
                 <button name = "" value = "1" class="rosterButton">Find Roster</button>
             </form>
@@ -48,6 +48,9 @@
                     <th scope = "col">Student Name</th>
                     <th scope = "col">Student Email</th>
                 </tr>
+                
+                <%- roster %>
+
             </table>
         </div>
 
