@@ -256,13 +256,11 @@ const deleteCourseFromInstructor = (instructorID, cID, done) => {
     });
 
     findCourseInformation(cID, function(err, course) {
-        
-        let studentsEnrolled = course[0].studentsEnrolled.length;
 
-        if(studentsEnrolled > 0) deleteCourseFromStudent(cID);
+        if(course[0].studentsEnrolled.length > 0) deleteCourseFromStudent(cID);
+
+        deleteCourseFromDatabase(cID);
     });
-    
-    deleteCourseFromDatabase(cID);
 
     Instructor.findById(instructorID, function(err, instructor) {
         if (err) return console.error(err);
