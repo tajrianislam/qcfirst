@@ -320,6 +320,32 @@ footer {
     cursor: pointer;
 }
 
+
+.studentEditClassList {
+    list-style: none;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.studentEditButton {
+    font-family: "Rosario", sans-serif;
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    background-color: #c4c4c4;
+    color: red;
+    margin-top: 40px;
+}
+
+.studentEditButton:hover {
+    background-color: rgba(196, 196, 196, 60%);
+    cursor: pointer;
+}
+
 .courseField {
     font-family: "Alice", serif;
     font-weight: bold;
@@ -359,6 +385,27 @@ footer {
     cursor: pointer;
 }
 
+@media only screen and (min-width: 960px) {
+    
+    .adminTableButtonList {
+        list-style: none;
+        display: flex;
+        align-items: stretch;
+        justify-content: space-evenly;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+
+    .adminTableButtonList {
+        text-align: center;
+        list-style: none;
+    }   
+}
+
 .adminButton {
     font-family: "Rosario", sans-serif;
     width: 230px;
@@ -373,7 +420,6 @@ footer {
     background-color: rgba(196, 196, 196, 60%);
     cursor: pointer;
 }
-
 
 /*Student Enroll */
 

@@ -438,16 +438,86 @@ app.post('/deletecourse', function(req,res) {
     });
 });    
 
+const findClassWithSearch = require("./database.js").findClassWithSearch;
+const createAndSaveSearchForStudent = require("./database.js").createAndSaveSearchForStudent;
+const findStudentSearch = require("./database.js").findStudentSearch;
+const addSearchTermToStudent = require("./database.js").addSearchTermToStudent;
 const findClassForEnrollWithID = require("./database.js").findClassForEnrollWithID;
 const findClassForEnrollWithSubjectAndNumber = require("./database.js").findClassForEnrollWithSubjectAndNumber;
 const findAllCourses = require("./database.js").findAllCourses;
 app.post('/findClass', function(req, res) {
 
+    var search = req.body.searchBar;
     var classID = req.body.classId;
     var subject = req.body.subjectEnroll;
     var courseNumber = req.body.courseNumberEnroll;
 
-    if(classID != ""){
+    if(search != ""){
+
+        findClassWithSearch(search, function(err, courses) {
+            
+            findStudentSearch(id, function(e, searchStudent) {
+                if (e) console.error(e);
+
+                if(searchStudent == "") {
+
+                    createAndSaveSearchForStudent(id, fullName, search, function(error, data) {
+                        if (err) console.error(error);
+                    });
+
+                } else {
+                    addSearchTermToStudent(id, search);
+                }
+            });
+            
+            if(courses == ""){
+                res.redirect('/studentcourses_dne');
+            } else {
+            studentClassesEnroll = "";
+                
+                for(let courseInfo of courses){
+                    
+                    let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    let deadline = month[(courseInfo.enrollmentDeadline.getMonth())] + " " + courseInfo.enrollmentDeadline.getDate() + " " + courseInfo.enrollmentDeadline.getFullYear();
+                    
+                    studentClassesEnroll += 
+                    `<form method="post" action="/addClass">
+                        <table class = "bigTable tableSpace" id="studentCourseTable">
+                            <tr>
+                                <th scope = "col">Course ID</th>
+                                <th scope = "col">Course Name</th>
+                                <th scope = "col">Course Time</th>
+                                <th scope = "col">Professor</th>
+                                <th scope = "col">Select</th>
+                            </tr>
+                            <tr>
+                                <td><input type="hidden" name="classID" value="${courseInfo.courseID}">${courseInfo.courseID}</td>
+                                <td>${courseInfo.courseNumberName}</td>
+                                <td>${courseInfo.courseDays} ${courseInfo.courseTime}</td>
+                                <td>${courseInfo.courseProfessor}</td>
+                                <td rowspan="3"><button class = "addCourseButton">Add Course</button></td>
+                            </tr>
+                            <tr>
+                                <th scope = "col">Semester</th>
+                                <th scope = "col">Description</th>
+                                <th scope = "col">Deadline</th>
+                                <th scope = "col">Capacity</th>
+                            </tr>
+                            <tr>
+                                <td>${courseInfo.semester}</td>
+                                <td>${courseInfo.courseDescription}</td>
+                                <td>${deadline}</td>
+                                <td>${courseInfo.studentsEnrolled.length}/${courseInfo.courseCapacity}</td>
+                            </tr>
+                        </table>
+                    </form>`
+                }
+
+                res.redirect('/studentcourses');
+            }
+        });
+
+    } else if(classID != ""){
 
         findClassForEnrollWithID(classID, function(err, course) {
             
@@ -689,6 +759,7 @@ app.post('/addClass', function(req, res) {
 
 const findAllStudents = require('./database.js').findAllStudents;
 const findAllInstructors = require('./database.js').findAllInstructors;
+const findAllSearches = require('./database.js').findAllSearches;
 app.post('/showdatabase', function(req, res) {
 
     if(req.body.adminButton == 1) {
@@ -745,19 +816,26 @@ app.post('/showdatabase', function(req, res) {
 
         findAllCourses(function(err, courses) {
             
-            
             for(let course of courses){
                 
-                adminTable += `<table class = "bigTable tableSpace" id="adminTable">
-        <tr>
-            <th scope = "col">Course ID</th>
-            <th scope = "col">Semester</th>
-            <th scope = "col">Course Name</th>
-            <th scope = "col">Days/Time</th>
-            <th scope = "col">Professor</th>
-        </tr>`
+                adminTable += 
+                `<table class = "bigTable tableSpace" id="adminTable">
+                    <tr>
+                        <th scope = "col">Course ID</th>
+                        <th scope = "col">Semester</th>
+                        <th scope = "col">Course Name</th>
+                        <th scope = "col">Days/Time</th>
+                        <th scope = "col">Professor</th>
+                    </tr>`
                 
-                adminTable += `<tr><td>${course.courseID}</td><td>${course.semester}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td><td>${course.courseProfessor}</td>
+                adminTable += 
+                `<tr>
+                    <td>${course.courseID}</td>
+                    <td>${course.semester}</td>
+                    <td>${course.courseNumberName}</td>
+                    <td>${course.courseDays} ${course.courseTime}</td>
+                    <td>${course.courseProfessor}</td>
+                </tr>
                 <tr>
                 <th scope = "col" colspan="5">Students Enrolled</th>
                 </tr><tr><td colspan="5">`
@@ -768,6 +846,37 @@ app.post('/showdatabase', function(req, res) {
             }
 
             res.render('adminhome', {adminTableInfo: adminTable});
-        })
+        });
+
+    } else if(req.body.adminButton == 4) {
+
+        adminTable = "";
+
+        findAllSearches(function(err, searches) {
+            
+            for(let search of searches){
+                
+                adminTable += 
+                `<table class = "bigTable tableSpace" id="adminTable">
+                    <tr>
+                        <th scope = "col">Student ID</th>
+                        <th scope = "col">Student Name</th>
+                        <th scope = "col">Searches</th>
+                    </tr>`
+                
+                adminTable += 
+                `<tr>
+                    <td>${search.studentID}</td>
+                    <td>${search.studentFullName}</td>
+                    <td>`
+                    for(let searchWords of search.studentSearch){
+                        adminTable += searchWords + " ";
+                    }
+                adminTable += `</td></tr>`
+            }
+
+            res.render('adminhome', {adminTableInfo: adminTable});
+        });
+
     }
 });

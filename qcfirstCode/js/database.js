@@ -233,6 +233,15 @@ const findCourseInformation = (cID, done) => {
     });
 }
 
+const findClassWithSearch = (searchTerm, done) => {
+
+    Course.find({courseNumberName: {$regex: searchTerm}}, function(err, courses) {
+        if (err) return console.error(err);
+
+        done(null, courses);
+    });
+}
+
 const findClassForEnrollWithID = (cID, done) => {
 
     Course.find({courseID: cID}, function(err, course) {
@@ -300,6 +309,7 @@ exports.addCourseToInstructor = addCourseToInstructor;
 exports.addCourseToStudent = addCourseToStudent;
 exports.addStudentToCourse = addStudentToCourse;
 exports.findCourseInformation = findCourseInformation;
+exports.findClassWithSearch = findClassWithSearch;
 exports.findClassForEnrollWithID = findClassForEnrollWithID;
 exports.findClassForEnrollWithSubjectAndNumber = findClassForEnrollWithSubjectAndNumber;
 exports.findAllCourses = findAllCourses;
@@ -310,7 +320,7 @@ exports.deleteCourseFromInstructor = deleteCourseFromInstructor;
 
 
 const searchSchema = new Schema ({
-    studentID: {type: Number},
+    studentID: {type: String},
     studentFullName: {type: String},
     studentSearch: [String]
 });
@@ -345,6 +355,16 @@ const addSearchTermToStudent = (stuID, term) => {
 
 }
 
+const findAllSearches = (done) => {
+    
+    Search.find({}, function(err, searches) {
+        if (err) return console.error(err);
+
+        done(null, searches);
+    });
+}
+
 exports.createAndSaveSearchForStudent = createAndSaveSearchForStudent;
 exports.addSearchTermToStudent = addSearchTermToStudent;
 exports.findStudentSearch = findStudentSearch;
+exports.findAllSearches = findAllSearches;
