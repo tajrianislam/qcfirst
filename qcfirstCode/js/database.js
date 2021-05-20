@@ -29,7 +29,8 @@ const instructorSchema = new Schema ({
     coursesTeaching: [{courseID: {type: Number},
                        courseSemester: {type: String},
                        courseNumberName: {type: String},
-                       courseDaysTime: {type: String} 
+                       courseDays: {type: String}, 
+                       courseTime: {type: String}
                      }]
 });
 
@@ -101,6 +102,15 @@ const findStudentByID = (studentID, done) => {
     });
 }
 
+const findInstructorByID = (instructorID, done) => {
+
+    Instructor.find({_id: instructorID}, function(err, instructor) {
+        if (err) return console.error(err);
+
+        done(null, instructor);
+    });
+}
+
 const findAllInstructors = (done) => {
     
     Instructor.find({}, function(err, instructors) {
@@ -127,6 +137,7 @@ exports.findStudentLogin = findStudentLogin;
 exports.findInstructorLogin = findInstructorLogin;
 exports.findAdminLogin = findAdminLogin;
 exports.findStudentByID = findStudentByID;
+exports.findInstructorByID = findInstructorByID;
 exports.findAllInstructors = findAllInstructors;
 exports.findAllStudents = findAllStudents;
 
@@ -192,9 +203,9 @@ const createRandomCourseID = () => {
     return randomValue;
 };
 
-const addCourseToInstructor = (instructorID, cID, semester, numberName, daysTime) => {
+const addCourseToInstructor = (instructorID, cID, semester, numberName, days, time) => {
     
-    Instructor.findByIdAndUpdate(instructorID, {$push: {"coursesTeaching": {courseID: cID, courseSemester: semester, courseNumberName: numberName, courseDaysTime: daysTime}}}, {safe: true, upsert: true, new : true}, (err, instructor) => {
+    Instructor.findByIdAndUpdate(instructorID, {$push: {"coursesTeaching": {courseID: cID, courseSemester: semester, courseNumberName: numberName, courseDays: days, courseTime: time}}}, {safe: true, upsert: true, new : true}, (err, instructor) => {
         if (err) return console.error(err);
     });
 }
@@ -293,3 +304,47 @@ exports.findClassForEnrollWithID = findClassForEnrollWithID;
 exports.findClassForEnrollWithSubjectAndNumber = findClassForEnrollWithSubjectAndNumber;
 exports.findAllCourses = findAllCourses;
 exports.deleteCourseFromInstructor = deleteCourseFromInstructor;
+
+
+// Search Schema and Functions
+
+
+const searchSchema = new Schema ({
+    studentID: {type: Number},
+    studentFullName: {type: String},
+    studentSearch: [String]
+});
+
+const Search = mongoose.model("Search", searchSchema);
+
+const createAndSaveSearchForStudent = (stuID, stuName, searchInfo, done) => {
+
+    var searchStudent = new Search({studentID: stuID, studentFullName: stuName, studentSearch: [searchInfo]});
+
+    searchStudent.save(function(err, data) {
+        if (err) console.error(err);
+        
+        done(null, data);
+    });
+}
+
+const findStudentSearch = (stuID, done) => {
+
+    Search.find({studentID: stuID}, function(err, searchStudent) {
+        if (err) return console.error(err);
+
+        done(null, searchStudent);
+    });
+}
+
+const addSearchTermToStudent = (stuID, term) => {
+
+    Search.findOneAndUpdate({studentID: stuID}, {$push: {studentSearch: term}}, {safe: true, upsert: true, new : true}, (err, student) => {
+        if (err) return console.error(err);
+    });
+
+}
+
+exports.createAndSaveSearchForStudent = createAndSaveSearchForStudent;
+exports.addSearchTermToStudent = addSearchTermToStudent;
+exports.findStudentSearch = findStudentSearch;

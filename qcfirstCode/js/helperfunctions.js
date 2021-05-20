@@ -136,6 +136,143 @@ function checkForClassTimeConflicts(studentClass, courseToAdd) {
 }
 
 // Returns true if there is no conflict, false if there is a conflict
+function checkForCreateTimeConflicts(instructorClass, courseDays, courseTime) {
+
+    var instructorCurrentClassDays = instructorClass.courseDays;
+    var instructorCurrentClassTime = instructorClass.courseTime;
+    
+    var courseToAddDays = courseDays;
+    var courseToAddTime = courseTime;
+
+    if(instructorCurrentClassDays == "Monday") {
+
+        if(courseToAddDays == "Monday" || courseToAddDays == "Mon/Wed") {
+            
+            if(checkForTimeConflict(instructorCurrentClassTime, courseToAddTime)){
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+
+    } else if(instructorCurrentClassDays == "Tuesday") {
+
+        if(courseToAddDays == "Tuesday" || courseToAddDays == "Tues/Thurs") {
+            
+            if(checkForTimeConflict(instructorCurrentClassTime, courseToAddTime)){
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+
+    } else if(instructorCurrentClassDays == "Wednesday") {
+        
+        if(courseToAddDays == "Wednesday" || courseToAddDays == "Mon/Wed") { 
+            
+            if(checkForTimeConflict(instructorCurrentClassTime, courseToAddTime)){
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+
+    } else if(instructorCurrentClassDays == "Thursday") {
+        
+        if(courseToAddDays == "Thursday" || courseToAddDays == "Tues/Thurs") {
+            
+            if(checkForTimeConflict(instructorCurrentClassTime, courseToAddTime)){
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+        
+    } else if(instructorCurrentClassDays == "Friday") {
+        
+        if(courseToAddDays == "Friday"){
+            
+            if(checkForTimeConflict(instructorCurrentClassTime, courseToAddTime)){
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+
+    } else if(instructorCurrentClassDays == "Saturday") {
+
+        if(courseToAddDays == "Saturday") {
+            
+            if(checkForTimeConflict(instructorCurrentClassTime, courseToAddTime)){
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+        
+    } else if(instructorCurrentClassDays == "Sunday") {
+
+        if(courseToAddDays == "Sunday") {
+            
+            if(checkForTimeConflict(instructorCurrentClassTime, courseToAddTime)){
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+        
+    } else if(instructorCurrentClassDays == "Mon/Wed") {
+
+        if(courseToAddDays == "Monday" || courseToAddDays == "Wednesday" || courseToAddDays == "Mon/Wed") {
+            
+            if(checkForTimeConflict(instructorCurrentClassTime, courseToAddTime)){
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+        
+    } else if(instructorCurrentClassDays == "Tues/Thurs") {
+        
+        if(courseToAddDays == "Tuesday" || courseToAddDays == "Thursday" || courseToAddDays == "Tues/Thurs") {
+            
+            if(checkForTimeConflict(instructorCurrentClassTime, courseToAddTime)){
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            return true;
+        }
+    }
+}
+
+// Returns true if there is no conflict, false if there is a conflict
 function checkForTimeConflict(currentClassTime, classToAddTime) {
 
     if(currentClassTime == "7:45AM-9:00AM") {
@@ -245,4 +382,5 @@ function checkForTimeConflict(currentClassTime, classToAddTime) {
 }
 
 exports.checkForClassTimeConflicts = checkForClassTimeConflicts;
+exports.checkForCreateTimeConflicts = checkForCreateTimeConflicts;
 exports.checkForTimeConflict = checkForTimeConflict;

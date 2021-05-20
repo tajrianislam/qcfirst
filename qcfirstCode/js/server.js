@@ -92,6 +92,14 @@ app.get('/instructorhome_successfulCreateCourse', (req, res) => {
     }
 });
 
+app.get('/instructorhome_errorCreatingCourse', (req, res) => {
+    if(instructorLoggedIn){
+        res.render("instructorhome", {instructorName: fullName, instructorID: id, instructorCourses: coursesTeaching, successMessage: '<h2 class="invalid"> Course has time conflict with another course! </h2>'});
+    } else {
+        res.redirect("/login");
+    }
+});
+
 app.get('/instructorhome_successfulDelete', (req, res) => {
     if(instructorLoggedIn){
         res.render("instructorhome", {instructorName: fullName, instructorID: id, instructorCourses: coursesTeaching, successMessage: '<h2 class="successful">Success deleting course! </h2>'});
@@ -236,9 +244,9 @@ app.post('/login', function(req, res) {
                 coursesForDelete = ""
 
                 for(let course of courseList){
-                    coursesTeaching += `<tr><td>${course.courseID}</td><td>${course.courseSemester}</td><td>${course.courseNumberName}</td><td>${course.courseDaysTime}</td></tr>`;
+                    coursesTeaching += `<tr><td>${course.courseID}</td><td>${course.courseSemester}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td></tr>`;
                     selectRosterInstructor += `<option value="${course.courseID}">${course.courseID}` + " : " + `${course.courseNumberName}</option>`;
-                    coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${course.courseID}">${course.courseID}</td><td>${course.courseNumberName}</td><td>${course.courseDaysTime}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
+                    coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${course.courseID}">${course.courseID}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
                 }
 
                 instructorLoggedIn = true;
@@ -324,6 +332,8 @@ app.post('/signup', function(req, res) {
 
 const createAndSaveCourse = require("./database.js").createAndSaveCourse;
 const addCourseToInstructor = require("./database.js").addCourseToInstructor;
+const findInstructorByID = require("./database.js").findInstructorByID;
+const checkForCreateTimeConflicts = require("./helperfunctions").checkForCreateTimeConflicts;
 app.post('/createClass', function(req, res) { 
     
     var semester = req.body.createCourseSemester;
@@ -334,16 +344,48 @@ app.post('/createClass', function(req, res) {
     var capacity = req.body.createCourseCapacity;
     var description = req.body.createCourseDescription;
 
-    createAndSaveCourse(semester, department, numberName, days, time, fullName, capacity, description, function(err, data) {
-        if(err){
-            return(err);
-        } else if(data){
-            let dayTimeString = days + " " + time;
-            coursesTeaching += `<tr><td>${data.courseID}</td><td>${semester}</td><td>${numberName}</td><td>${dayTimeString}</td></tr>`
-            selectRosterInstructor += `<option value="${data.courseID}">${data.courseID}` + " : " + `${numberName}</option>`
-            coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${data.courseID}">${data.courseID}</td><td>${numberName}</td><td>${dayTimeString}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
-            addCourseToInstructor(id, data.courseID, data.semester, numberName, dayTimeString);
-            res.redirect("/instructorhome_successfulCreateCourse");
+    findInstructorByID(id, function(err, instructor) {
+
+        let instructorCourses = instructor[0].coursesTeaching;
+
+        if(instructorCourses.length == 0) {
+            createAndSaveCourse(semester, department, numberName, days, time, fullName, capacity, description, function(err, data) {
+                if(err){
+                    return(err);
+                } else if(data){
+                    coursesTeaching += `<tr><td>${data.courseID}</td><td>${semester}</td><td>${numberName}</td><td>${days} ${time}</td></tr>`
+                    selectRosterInstructor += `<option value="${data.courseID}">${data.courseID}` + " : " + `${numberName}</option>`
+                    coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${data.courseID}">${data.courseID}</td><td>${numberName}</td><td>${days} ${time}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
+                    addCourseToInstructor(id, data.courseID, data.semester, numberName, days, time);
+                    res.redirect("/instructorhome_successfulCreateCourse");
+                } 
+            });
+        } else {
+            
+            var noConflict = true;
+
+            for(let instructorCourse of instructorCourses) {
+                
+                if(instructorCourse.courseSemester == semester && !checkForCreateTimeConflicts(instructorCourse, days, time)) {
+                    noConflict = false;
+                }
+            }
+
+            if(noConflict) {
+                createAndSaveCourse(semester, department, numberName, days, time, fullName, capacity, description, function(err, data) {
+                    if(err){
+                        return(err);
+                    } else if(data){
+                        coursesTeaching += `<tr><td>${data.courseID}</td><td>${semester}</td><td>${numberName}</td><td>${days} ${time}</td></tr>`
+                        selectRosterInstructor += `<option value="${data.courseID}">${data.courseID}` + " : " + `${numberName}</option>`
+                        coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${data.courseID}">${data.courseID}</td><td>${numberName}</td><td>${days} ${time}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
+                        addCourseToInstructor(id, data.courseID, data.semester, numberName, days, time);
+                        res.redirect("/instructorhome_successfulCreateCourse");
+                    } 
+                });
+            } else if(!noConflict) {
+                res.redirect("/instructorhome_errorCreatingCourse")
+            }
         } 
     });
 });
@@ -386,9 +428,9 @@ app.post('/deletecourse', function(req,res) {
     
         for(let course of courseList){
             if(course.courseID != courseID){
-                coursesTeaching += `<tr><td>${course.courseID}</td><td>${course.courseSemester}</td><td>${course.courseNumberName}</td><td>${course.courseDaysTime}</td></tr>`;
+                coursesTeaching += `<tr><td>${course.courseID}</td><td>${course.courseSemester}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td></tr>`;
                 selectRosterInstructor += `<option value="${course.courseID}">${course.courseID}` + " : " + `${course.courseNumberName}</option>`;
-                coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${course.courseID}">${course.courseID}</td><td>${course.courseNumberName}</td><td>${course.courseDaysTime}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
+                coursesForDelete += `<form method="post" action="/deletecourse"><tr><td><input type="hidden" name="classID" value="${course.courseID}">${course.courseID}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td><td><button class = "addCourseButton">Delete Course</button></td></tr></form>`
             }
         }
 
@@ -564,6 +606,7 @@ app.post('/addClass', function(req, res) {
     var classToAddDays = "";
     var classToAddTime = "";
     var classToAddProfessor = "";
+    var classToAddSemester = "";
 
     var studentEmail = "";
 
@@ -580,7 +623,7 @@ app.post('/addClass', function(req, res) {
         findStudentByID(id, function(err, student) {
             
             studentEmail = student[0].email;
-            studentCourses = student[0].coursesEnrolled;
+            let studentCourses = student[0].coursesEnrolled;
 
             if(studentCourses.length == 0) {
                 
