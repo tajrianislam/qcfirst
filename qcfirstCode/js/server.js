@@ -309,21 +309,21 @@ app.post('/signup', function(req, res) {
 
     if(req.body.signupButton == 1) {
         createAndSaveStudent(firstName, lastName, email, password, function (err, data) {
-            if(err){
+            if(err) {
                 return(err);
-            } else if(!data){
+            } else if(data == null) {
                 res.render("signup", {signupmessage: '<h2 class="invalid"> Email already exists! </h2>'});
-            } else {
+            } else if(data) {
                 res.redirect("/login_successfulSignup");
             }
         });
     } else if(req.body.signupButton == 2) {
         createAndSaveInstructor(firstName, lastName, email, password, function (err, data) {
-            if(err){
+            if(err) {
                 return(err);
-            } else if(!data){
+            } else if(data == null) {
                 res.render("signup", {signupmessage: '<h2 class="invalid"> Email already exists! </h2>'});
-            } else {
+            } else if(data) {
                 res.redirect("/login_successfulSignup");
             }
         });

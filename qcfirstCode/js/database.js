@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose');
 require('mongoose-type-email');
 
-mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, function(err) {
+mongoose.connect('mongodb+srv://User1:DavenTajDB@cluster0.vkrtm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, function(err) {
     if (err) throw err;
 });
 
@@ -47,10 +47,17 @@ const createAndSaveStudent = (fName, lName, emailAddress, pass, done) => {
 
     var student = new Student({firstName: fName, lastName: lName, email: emailAddress, password: pass});
 
-    student.save(function(err, data) {
-        if (err) console.error(err);
+    findIfInstructorEmailExist(emailAddress, function(err, instructor) {
         
-        done(null, data)
+        if(instructor == "") {
+            student.save(function(err, data) {
+                // if (err) console.error(err);
+                
+                done(null, data);
+            });
+        } else {
+            done(null, null);
+        }
     });
 }
 
@@ -58,10 +65,17 @@ const createAndSaveInstructor = (fName, lName, emailAddress, pass, done) => {
 
     var instructor = new Instructor({firstName: fName, lastName: lName, email: emailAddress, password: pass});
 
-    instructor.save(function(err, data) {
-        if (err) console.error(err);
+    findIfStudentEmailExist(emailAddress, function(err, student) {
         
-        done(null, data);
+        if(student == ""){
+            instructor.save(function(err, data) {
+                // if (err) console.error(err);
+                
+                done(null, data);
+            });
+        } else {
+            done(null, null);
+        }
     });
 }
 
@@ -126,6 +140,24 @@ const findAllStudents = (done) => {
         if (err) return console.error(err);
 
         done(null, students);
+    });
+}
+
+const findIfStudentEmailExist = (emailAddress, done) => {
+    
+    Student.find({email: emailAddress}, function(err, student) {
+        if (err) return console.error(err);
+
+        done(null, student);
+    });
+}
+
+const findIfInstructorEmailExist = (emailAddress, done) => {
+    
+    Instructor.find({email: emailAddress}, function(err, instructor) {
+        if (err) return console.error(err);
+
+        done(null, instructor);
     });
 }
 
