@@ -17,7 +17,7 @@
         <hr>
         <ul class="headerList">
             <li><a href="/studenthome" class="headerButton">Home</a></li>
-            <li><a href="/studentenroll" class="headerButton">Enroll</a></li> 
+            <li><a href="/studentenroll" class="headerButton">Enroll</a></li>
             <li><a href="/studentdrop" class="headerButton">Drop</a></li>
             <li><a href="https://www.qc.cuny.edu/pages/calendar.aspx" class="headerButton" target="_blank">Calendar</a></li> 
             <li>
@@ -31,41 +31,18 @@
     <div id="page-container">
         <div id="content-wrap">
             
-            <div class="popupMessage">
-                <%- courseAddingMessage %>
-            </div>
+            <table class = "bigTable instructorTables">
+                <tr>
+                    <th scope = "col">Course ID</th>
+                    <th scope = "col">Course Name</th>
+                    <th scope = "col">Course Time</th>
+                    <th scope = "col">Drop</th>
+                </tr>
 
-                <div class="leftLabelsSpacing">
-                    <p class="leftLabels">Full Name :</p>
-                    <p class="leftValue"> <%- studentName%> </p>   
-                </div>
-                
-                <div>
-                    <p class="leftLabels">Student ID :</p>
-                    <p class="leftValue"> <%- studentID%> </p>
-                </div>
-                
-            
-            <h3 class="tableName">Current Schedule:</h3>
-            
-            <table class="bigTable" id="studentSchedule">
-                <tbody>
-                    <tr>
-                        <th scope="col">Course Id</th>
-                        <th scope="col">Semester</th>
-                        <th scope="col">Course Name</th>
-                        <th scope="col">Days/Time</th>
-                        <th scope="col">Professor</th>
-                    </tr>
-                
-                    <%- studentenrolledcourses %>
-                
-                </tbody>
+                <%- coursesToDrop %>
+
             </table>
-
-                <ul class="studentEditClassList">
-                    <li><a href="/studentenroll" class="formButtonLink"><button class="studentEditButton">Add Class</button></a></li>
-                </ul> 
+        
         </div>
         
         <footer>

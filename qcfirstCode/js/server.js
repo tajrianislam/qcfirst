@@ -28,6 +28,7 @@ var coursesForDelete = "";
 // Student Variables
 var studentClassesEnroll = "";
 var studentClassesEnrolledIn = "";
+var studentClassesToDrop = "";
 
 // Admin Variables
 var adminTable = "";
@@ -54,7 +55,7 @@ app.get('/login_successfulSignup', (req, res) => {
     } else if (instructorLoggedIn) {
         res.redirect('/instructorhome')
     } else {
-        res.render('index', {loginmessage: '<h2 class="successful">Successful Signup! Sign in </h2>'});
+        res.render('index', {loginmessage: '<h2 class="successful">Successful signup! Sign in </h2>'});
     }
 });
 
@@ -158,7 +159,23 @@ app.get('/studenthome', (req, res) => {
 
 app.get('/studenthome_successfulAdd', (req, res) => {
     if(studentLoggedIn){
-        res.render("studenthome", {studentName: fullName, studentID: id, courseAddingMessage: '<h2 class="successful"> Course Added Successfully </h2>', studentenrolledcourses: studentClassesEnrolledIn});
+        res.render("studenthome", {studentName: fullName, studentID: id, courseAddingMessage: '<h2 class="successful"> Course added successfully! </h2>', studentenrolledcourses: studentClassesEnrolledIn});
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get('/studenthome_successfulDrop', (req, res) => {
+    if(studentLoggedIn){
+        res.render("studenthome", {studentName: fullName, studentID: id, courseAddingMessage: '<h2 class="successful"> Course dropped successfully! </h2>', studentenrolledcourses: studentClassesEnrolledIn});
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get('/studentdrop', (req, res) => {
+    if(studentLoggedIn){
+        res.render("studentdrop", {coursesToDrop: studentClassesToDrop});
     } else {
         res.redirect("/login");
     }
@@ -208,14 +225,16 @@ app.post('/login', function(req, res) {
                 firstName = student[0].firstName;
                 lastName = student[0].lastName;
                 id = student[0]._id;
-                courseList = student[0].coursesEnrolled;
+                let courseList = student[0].coursesEnrolled;
 
                 fullName = firstName + " " + lastName;
                 
                 studentClassesEnrolledIn = "";
+                studentClassesToDrop = "";
 
                 for(let course of courseList){
                     studentClassesEnrolledIn += `<tr><td>${course.courseID}</td><td>${course.courseSemester}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td><td>${course.courseProfessor}</td></tr>`;
+                    studentClassesToDrop += `<form method="post" action="/dropcourse"><tr><td><input type="hidden" name="classID" value="${course.courseID}">${course.courseID}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td><td><button class = "addCourseButton">Drop Course</button></td></tr></form>`
                 }
 
                 studentLoggedIn = true;
@@ -710,6 +729,7 @@ app.post('/addClass', function(req, res) {
                 addCourseToStudent(id, classToAddID, classToAddSemester, classToAddNameAndNumber, classToAddDays, classToAddTime, classToAddProfessor);
                 addStudentToCourse(classToAddID, fullName, studentEmail);
                 studentClassesEnrolledIn += `<tr><td>${classToAddID}</td><td>${classToAddSemester}</td><td>${classToAddNameAndNumber}</td><td>${classToAddDays} ${classToAddTime}</td><td>${classToAddProfessor}`
+                studentClassesToDrop += `<form method="post" action="/dropcourse"><tr><td><input type="hidden" name="classID" value="${classToAddID}">${classToAddID}</td><td>${classToAddNameAndNumber}</td><td>${classToAddDays} ${classToAddTime}</td><td><button class = "addCourseButton">Drop Course</button></td></tr></form>`
                 res.redirect('/studenthome_successfulAdd');
 
             } else {
@@ -748,12 +768,36 @@ app.post('/addClass', function(req, res) {
                     addCourseToStudent(id, classToAddID, classToAddSemester, classToAddNameAndNumber, classToAddDays, classToAddTime, classToAddProfessor);
                     addStudentToCourse(classToAddID, fullName, studentEmail);
                     studentClassesEnrolledIn += `<tr><td>${classToAddID}</td><td>${classToAddSemester}</td><td>${classToAddNameAndNumber}</td><td>${classToAddDays} ${classToAddTime}</td><td>${classToAddProfessor}`
+                    studentClassesToDrop += `<form method="post" action="/dropcourse"><tr><td><input type="hidden" name="classID" value="${classToAddID}">${classToAddID}</td><td>${classToAddNameAndNumber}</td><td>${classToAddDays} ${classToAddTime}</td><td><button class = "addCourseButton">Drop Course</button></td></tr></form>`
                     res.redirect('/studenthome_successfulAdd');
                 } else if(!noConflict){
                     res.render("studentcourses", {coursemessage: '<h2 class="invalid"> There is a time conflict with one of your added courses! </h2>', possiblecourses: studentClassesEnroll});
                 }
             }
         });
+    });
+});
+
+const dropCourseFromStudent = require("./database.js").dropCourseFromStudent;
+app.post('/dropcourse', function(req, res) { 
+
+    var courseID = req.body.classID;
+
+    dropCourseFromStudent(id, courseID, (err, student) => {
+        
+        studentClassesEnrolledIn = "";
+        studentClassesToDrop = "";
+
+        let courseList = student.coursesEnrolled;
+    
+        for(let course of courseList){
+            if(course.courseID != courseID){
+                studentClassesEnrolledIn += `<tr><td>${course.courseID}</td><td>${course.courseSemester}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td><td>${course.courseProfessor}</td></tr>`;
+                studentClassesToDrop += `<form method="post" action="/dropcourse"><tr><td><input type="hidden" name="classID" value="${course.courseID}">${course.courseID}</td><td>${course.courseNumberName}</td><td>${course.courseDays} ${course.courseTime}</td><td><button class = "addCourseButton">Drop Course</button></td></tr></form>`
+            }
+        }
+
+        res.redirect('/studenthome_successfulDrop');
     });
 });
 

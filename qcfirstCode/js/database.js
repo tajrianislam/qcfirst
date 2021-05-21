@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose');
 require('mongoose-type-email');
 
-mongoose.connect('mongodb+srv://User1:DavenTajDB@cluster0.vkrtm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, function(err) {
+mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, function(err) {
     if (err) throw err;
 });
 
@@ -51,7 +51,6 @@ const createAndSaveStudent = (fName, lName, emailAddress, pass, done) => {
         
         if(instructor == "") {
             student.save(function(err, data) {
-                // if (err) console.error(err);
                 
                 done(null, data);
             });
@@ -69,7 +68,6 @@ const createAndSaveInstructor = (fName, lName, emailAddress, pass, done) => {
         
         if(student == ""){
             instructor.save(function(err, data) {
-                // if (err) console.error(err);
                 
                 done(null, data);
             });
@@ -335,6 +333,31 @@ const deleteCourseFromStudent = (cID) => {
     });
 }
 
+const dropCourseFromStudent = (studentID, cID, done) => {
+
+    var stuEmail = "";
+
+    Student.findByIdAndUpdate({_id: studentID}, {$pull: {"coursesEnrolled": {courseID: cID}}}, {safe: true, upsert: true, new : true}, (err, data) => {
+        if (err) return console.error(err);
+
+        stuEmail = data.email;
+        dropStudentFromCourse(cID, stuEmail);
+    });
+
+    Student.findById(studentID, function(err, student) {
+        if (err) return console.error(err);
+
+        done(null, student);
+    });
+}
+
+const dropStudentFromCourse = (cID, stuEmail) => {
+
+    Course.updateOne({courseID: cID}, {$pull: {"studentsEnrolled": {studentEmail: stuEmail}}}, {safe: true, upsert: true, new : true, mutli: true}, (err, data) => {
+        if (err) return console.error(err);
+    });
+}
+
 exports.CourseModel = Course;
 exports.createAndSaveCourse = createAndSaveCourse;
 exports.addCourseToInstructor = addCourseToInstructor;
@@ -346,6 +369,7 @@ exports.findClassForEnrollWithID = findClassForEnrollWithID;
 exports.findClassForEnrollWithSubjectAndNumber = findClassForEnrollWithSubjectAndNumber;
 exports.findAllCourses = findAllCourses;
 exports.deleteCourseFromInstructor = deleteCourseFromInstructor;
+exports.dropCourseFromStudent = dropCourseFromStudent;
 
 
 // Search Schema and Functions
