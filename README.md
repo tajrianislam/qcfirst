@@ -108,22 +108,22 @@ This is the page that shows the student all the courses that meet their specific
 ![Course](FinalScreenshots/StudenCourses.png)
 ### Student Drop 
 Here student's have the ability to drop courses if they don't want the course anymore or for any other reasons. The course ID is shown and the course name to guarantee you are dropping the correct course and there is a "Drop Course" button to the right which a user clicks when they want to get rid of that specific course. 
-
+![Drop](FinalScreenshots/InstructorDelete.png)
 ### Instructor Home
 Instructors can use this page to view their name and ID and also to view the courses they are teaching. This is also the landing page for instructors so they can use this page to navigate to other pages they have access to such as create where they can create a course, roster to check the course rosters and the delete page where they can delete courses.
-
+![IHome](FinalScreenshots/InstructorHome.png)
 ### Instructor Create
 Instructors can add classes they want to teach for the semester, the instructor will enter all the specific information they want for the course and the course will be created which allows for students to be able to join.
-
+![Create](FinalScreenshots/InstructorCreate.png)
 ### Instructor Roster
 Instructor can view the student roster's for the courses they are teaching, they can switch in between courses by clicking the drop down and selecting the specific class roster they want to view and then by hitting the "Find Roster" button. 
-
+![Roster](FinalScreenshots/InstructorRoster.png)
 ### Instructor Delete
 An instructor has the ability to delete courses as well. This page shows the instructor the course ID, course name and course time to make sure that the instructor is deleting the right course that they want to delete. They can delete the course by pressing the "Delete Course" button.
- 
+![Delete](FinalScreenshots/InstructorDelete.png) 
 ### Admin Home
 The admin home page is the landing page for admins and on this page an admin is able to view the student database, instructor database, course database and the search database (Containing searches that students make). The have the ability to view these databases just by clicking the button of the specific database they want to view.
-
+![Admin](FinalScreenshots/Admin.png)
 ## Differences between first design and final design
 
   - For the login page the buttons were originally in different positions, there was one login button and there was two signup buttons. Instead of only one login button we added three login buttons depending on what type of account the user has, if they are an instructor they use the instructor button to login. We removed one of the signup buttons and only made it one signup button.
