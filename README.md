@@ -14,7 +14,7 @@ The application code is posted on GitHub with link : https://github.com/Born2Cod
 ## Team Members
 
   - Daven Santana
-  - Tajirian Islam
+  - Tajrian Islam
 
 ## Contributers
 
